@@ -3,7 +3,7 @@ from torch import nn
 from torchvision.models import resnet18, resnet50, resnet101, densenet121, vgg16, inception_v3, efficientnet_b0
 import os
 
-from code.training.custom_models import CustomResNet
+from code.training.custom_models import CustomResNet, CustomDenseNet, CustomSEResNet, BasicBlock
 
 
 def get_resnet(model_name, pretrained_weights=False):
@@ -86,7 +86,7 @@ def get_custom_senet(model_name, pretrained_weights):
 
 
 def get_model(model_name: str, pretrained_weights, finetune_layer, pretrained_model, num_classes,
-              pretrain_on_CIFAR=False, layers=[]):
+              pretrain_on_CIFAR=False, layers=None, growth_rate=32):
     if model_name.startswith('resnet'):
         model = get_resnet(model_name, pretrained_weights)
         shape = (224, 224)
@@ -106,10 +106,10 @@ def get_model(model_name: str, pretrained_weights, finetune_layer, pretrained_mo
         model = CustomResNet(num_classes, layers)
         shape = (50, 50)
     if model_name.startswith('custom_densenet'):
-        model = get_custom_densenet(model_name, pretrained_weights)
+        model = CustomDenseNet(num_classes, growth_rate, layers)
         shape = (50, 50)
     if model_name.startswith('custom_senet'):
-        model = get_custom_senet(model_name, pretrained_weights)
+        model = CustomSEResNet(BasicBlock, layers, num_classes)
         shape = (50, 50)
     else:
         print('Error in model_name')

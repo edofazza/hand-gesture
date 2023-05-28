@@ -34,10 +34,7 @@ class CustomResNet(nn.Module):
         x = self.relu(x)
         x = self.maxpool(x)
 
-        x = self.layer1(x)
-        x = self.layer2(x)
-        x = self.layer3(x)
-        x = self.layer4(x)
+        x = self.layers(x)
 
         x = self.avgpool(x)
         x = torch.flatten(x, 1)
@@ -99,7 +96,7 @@ class ResidualBlock(nn.Module):
 
 
 class CustomDenseNet(nn.Module):
-    def __init__(self, num_classes=10, growth_rate=32, block_config=(6, 12, 24, 16)):
+    def __init__(self, num_classes, growth_rate, block_config):
         super(CustomDenseNet, self).__init__()
 
         self.growth_rate = growth_rate
@@ -193,7 +190,6 @@ class TransitionBlock(nn.Module):
         out = self.conv(self.relu(self.bn(x)))
         out = self.avgpool(out)
         return out
-
 
 
 """
@@ -302,18 +298,12 @@ class CustomSEResNet(nn.Module):
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
-        self.layer1 = self._make_layer(
-            block, 64, layers[0], stride=1, reduction_ratio=reduction_ratio
-        )
-        self.layer2 = self._make_layer(
-            block, 128, layers[1], stride=2, reduction_ratio=reduction_ratio
-        )
-        self.layer3 = self._make_layer(
-            block, 256, layers[2], stride=2, reduction_ratio=reduction_ratio
-        )
-        self.layer4 = self._make_layer(
-            block, 512, layers[3], stride=2, reduction_ratio=reduction_ratio
-        )
+        self.layers = nn.ModuleList([])
+        for i, num_blocks in enumerate(layers):
+            stride = 1 if i == 0 else 2
+            self.layers.append(self._make_layer(
+                block, 64 * (2 ** i), 64 * (2 ** (i + 1)), stride, reduction_ratio
+            ))
 
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512 * block.expansion, num_classes)
@@ -342,10 +332,7 @@ class CustomSEResNet(nn.Module):
         out = self.relu(out)
         out = self.maxpool(out)
 
-        out = self.layer1(out)
-        out = self.layer2(out)
-        out = self.layer3(out)
-        out = self.layer4(out)
+        out = self.layers(out)
 
         out = self.avgpool(out)
         out = torch.flatten(out, 1)
@@ -364,5 +351,3 @@ class CustomSEResNet(nn.Module):
                 nn.init.constant_(m.bias, 0)
 
 
-def custom_resnet50_senet(num_classes=1000):
-    return CustomSEResNet(BasicBlock, [3, 4, 6, 3], num_classes=num_classes)

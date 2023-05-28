@@ -7,7 +7,8 @@ dictionary = {
     'finetune_layer': 'fc',
     'pretrain_CIFAR': False,
     'pretrained_model': False,
-    'layers': [3, 3, 3],
+    'layers': [3, 3, 3],  # For layers (ResNet) block_config(DenseNet) [custom]
+    'growth_rate': 32,  # For growth_rate (DenseNet) [custom]
     # TRAINING PARAMETERS
     'batch_size': 1024,
     'epochs': 1000,
