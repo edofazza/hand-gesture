@@ -2,13 +2,14 @@ import os
 import shutil
 import random
 import torchvision
+import torch
 from torch.utils import data
 
 
 def create_sets(original_folder_path):
-    training_folder_path = "./training"
-    validation_folder_path = "./validation"
-    test_folder_path = "./test"
+    training_folder_path = "sets/training"
+    validation_folder_path = "sets/validation"
+    test_folder_path = "sets/test"
 
     os.makedirs(training_folder_path, exist_ok=True)
     os.makedirs(validation_folder_path, exist_ok=True)
@@ -41,13 +42,15 @@ def create_sets(original_folder_path):
         shutil.move(source_path, destination_path)
 
 
-def create_dataloaders(train_path, val_path, test_path, transform, batch_size=1024):
-    train_data = torchvision.datasets.ImageFolder(root=train_path, transform=transform)
-    val_data = torchvision.datasets.ImageFolder(root=val_path, transform=transform)
-    test_data = torchvision.datasets.ImageFolder(root=test_path, transform=transform)
-    train_loader = data.Dataloader(train_data, batch_size=batch_size, shuffle=True)
-    val_loader = data.Dataloader(val_data, batch_size=batch_size, shuffle=True)
-    test_loader = data.Dataloader(test_data, batch_size=batch_size, shuffle=True)
-    return train_loader, val_loader, test_loader
+def create_dataloader(set_path, transform, batch_size=1024):
+    set_data = torchvision.datasets.ImageFolder(root=set_path, transform=transform)
+    set_loader = data.DataLoader(set_data, batch_size=batch_size, shuffle=True)
+    return set_loader
 
 
+def get_device(seed):
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+        torch.cuda.manual_seed(seed)
+    else:
+        device = torch.device('cpu')
