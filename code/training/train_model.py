@@ -170,7 +170,7 @@ def train_model(cfg):
     val_f1_scores = []
 
     # pretrain the model on CIFAR-10
-    if cfg['pretrain_MNIST']:
+    if cfg['pretrain_CIFAR']:
         model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
                                  10)
         model.to(device)

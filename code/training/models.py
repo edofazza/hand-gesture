@@ -102,13 +102,13 @@ def get_model(model_name: str, pretrained_weights, finetune_layer, pretrained_mo
     elif model_name.startswith('efficientnet'):
         model = get_efficientnet(model_name, pretrained_weights)
         shape = (224, 224)
-    if model_name.startswith('custom_resnet'):
+    elif model_name.startswith('custom_resnet'):
         model = CustomResNet(num_classes, layers)
         shape = (50, 50)
-    if model_name.startswith('custom_densenet'):
+    elif model_name.startswith('custom_densenet'):
         model = CustomDenseNet(num_classes, growth_rate, layers)
         shape = (50, 50)
-    if model_name.startswith('custom_senet'):
+    elif model_name.startswith('custom_senet'):
         model = CustomSEResNet(BasicBlock, layers, num_classes)
         shape = (50, 50)
     else:
