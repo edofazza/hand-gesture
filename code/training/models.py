@@ -77,14 +77,6 @@ def get_efficientnet(model_name, pretrained_weights=False):
     return model
 
 
-def get_custom_densenet(model_name, pretrained_weights):
-    pass
-
-
-def get_custom_senet(model_name, pretrained_weights):
-    pass
-
-
 def get_model(model_name: str, pretrained_weights, finetune_layer, pretrained_model, num_classes,
               pretrain_on_CIFAR=False, layers=None, growth_rate=32):
     if model_name.startswith('resnet'):
