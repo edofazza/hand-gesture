@@ -5,16 +5,17 @@ from torch.utils import data
 from torchvision import transforms
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch import nn
-import imgaug.augmenters as iaa
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, confusion_matrix
 import numpy as np
-
+import matplotlib.pyplot as plt
+import seaborn as sn
+import pandas as pd
 
 from code.training.models import get_model
 from code.training.auxiliary import create_sets, create_dataloader, get_device
 
 
-def train(train_loader, model, optimizer, scheduler, criterion, device):
+def train(train_loader, model, optimizer, criterion, device):
     model.train()
     train_loss = 0.0
     true_labels = []
@@ -36,9 +37,6 @@ def train(train_loader, model, optimizer, scheduler, criterion, device):
         true_labels.extend(labels.cpu().numpy())
         predicted_labels.extend(preds.cpu().numpy())
         total += labels.size(0)
-
-    if scheduler is not None:
-        scheduler.step()
 
     train_loss /= len(train_loader.dataset)
     train_acc = sum([1 for i, j in zip(true_labels, predicted_labels) if i == j]) / total
@@ -72,10 +70,11 @@ def test(test_loader, model, criterion, device):
     test_loss /= len(test_loader.dataset)
     test_acc = sum([1 for i, j in zip(true_labels, predicted_labels) if i == j]) / total
     test_f1 = f1_score(true_labels, predicted_labels, average='macro')
+    conf_matrix = confusion_matrix(true_labels, predicted_labels)
 
     print('Test loss: {:.3f}, Test accuracy: {:.3f}, Test Macro F1-score: {:.3f}'.format(test_loss, test_acc, test_f1))
 
-    return test_loss, test_acc, test_f1
+    return test_loss, test_acc, test_f1, conf_matrix
 
 
 def train_on_mnist(model_name, model, shape, device):
@@ -110,11 +109,10 @@ def train_on_mnist(model_name, model, shape, device):
             train_loader,
             model,
             optimizer,
-            None,
             criterion,
             device
         )
-        test_loss, _, _ = test(test_loader, model, criterion, device)
+        test_loss, _, _, _ = test(test_loader, model, criterion, device)
 
         if test_loss <= best_loss:
             best_loss = test_loss
@@ -183,46 +181,25 @@ def train_model(cfg):
         model.to(device)
 
     # dataset and augmentation
-    augmenters_list = []
+    transforms_list = [transforms.Resize(shape)]
 
     if cfg['fliplr']:   # horizontal flip
-        augmenters_list.append(iaa.Fliplr(cfg['fliplr_value']))
-    if cfg['guassian_blur']:    # Gaussian blur
-        augmenters_list.append(iaa.GaussianBlur(sigma=(cfg['sigma_min'], cfg['sigma_max'])))
-    if cfg['linear_contrast']:    # linear contrast
-        augmenters_list.append(iaa.LinearContrast((cfg['lc_min'], cfg['lc_max'])))
+        transforms_list.append(transforms.RandomHorizontalFlip())
+    if cfg['gaussian_blur']:    # Gaussian blur
+        transforms_list.append(transforms.GaussianBlur(cfg['gaussian_kernel'], (cfg['sigma_min'], cfg['sigma_max'])))
     if cfg['affine']:    # affine
-        augmenters_list.append(iaa.Affine(
-            rotate=(-cfg['affine_percent'], cfg['affine_percent']),
-            translate_percent={"x": (-cfg['affine_percent'], cfg['affine_percent']), "y": (-cfg['affine_percent'], cfg['affine_percent'])},
-            scale=(cfg['affine_scale_min'], cfg['affine_scale_max'])
-        ))
+        transforms_list.append(transforms.RandomAffine(cfg['affine_percent'], scale=(cfg['affine_scale_min'], cfg['affine_scale_max'])))
     if cfg['jitter']:
-        augmenters_list.append(
-            iaa.SomeOf((0, 3), [
-                iaa.MultiplyBrightness((cfg['jitter_min'], cfg['jitter_max'])),  # brightness
-                iaa.ContrastNormalization((cfg['jitter_min'], cfg['jitter_max'])),  # contrast
-                iaa.MultiplyHueAndSaturation((cfg['jitter_min'], cfg['jitter_max']))  # hue and saturation
-            ])
-        )
+        transforms_list.append(
+            transforms.ColorJitter(brightness=(cfg['jitter_min'], cfg['jitter_max']),
+                                   contrast=(cfg['jitter_min'], cfg['jitter_max']),
+                                   hue=cfg['jitter_hue'],
+                                   saturation=(cfg['jitter_min'], cfg['jitter_max'])))
 
-    if augmenters_list:
-        augmenter = iaa.Sequential([
-            augmenters_list
-        ])
+    transforms_list.append(transforms.ToTensor())
+    transforms_list.append(transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]))
+    transform = transforms.Compose(transforms_list)
 
-        transform = transforms.Compose([
-            transforms.Resize(shape),
-            transforms.Lambda(lambda x: augmenter(x)),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-        ])
-    else:
-        transform = transforms.Compose([
-            transforms.Resize(shape),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-        ])
     val_transform = transforms.Compose([
             transforms.Resize(shape),
             transforms.ToTensor(),
@@ -249,12 +226,13 @@ def train_model(cfg):
             train_loader,
             model,
             optimizer,
-            scheduler,
             criterion,
             device
         )
-        val_loss, val_acc, val_f1 = test(val_loader, model, criterion, device)
+        val_loss, val_acc, val_f1, _ = test(val_loader, model, criterion, device)
 
+        if scheduler is not None:
+            scheduler.step(val_loss)
         # logging losses
         train_losses.append(train_loss)
         train_accuracies.append(train_acc)
@@ -307,6 +285,12 @@ def test_model(cfg):
     test_loader = create_dataloader(os.path.join('sets', 'validation'), transform, cfg['batch_size'])
     criterion = nn.CrossEntropyLoss()
 
-    test_loss, test_acc, test_f1 = test(test_loader, model, criterion, device)
+    test_loss, test_acc, test_f1, conf_matrix = test(test_loader, model, criterion, device)
     with open(os.path.join('models', model_name, 'test_results.txt'), 'w') as f:
         f.write('Test loss: {:.3f}, Test accuracy: {:.3f}, Test Macro F1-score: {:.3f}'.format(test_loss, test_acc, test_f1))
+
+    df_cm = pd.DataFrame(conf_matrix, index=[i for i in os.listdir(os.path.join('sets', 'training'))],
+                         columns=[i for i in os.listdir(os.path.join('sets', 'training'))])
+    plt.figure(figsize=(10, 10))
+    sn.heatmap(df_cm, annot=True)
+    plt.imsave(os.path.join('models', model_name, 'confusion_matrix.png'))
