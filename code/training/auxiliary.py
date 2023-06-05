@@ -17,7 +17,7 @@ def create_sets(original_folder_path):
 
     # List all directories in the original folder
     directories = os.listdir(original_folder_path)
-    print(directories)
+
     # Move directories to the new folders
     for i, directory in enumerate(directories):
         images = os.listdir(os.path.join(original_folder_path, directory))
