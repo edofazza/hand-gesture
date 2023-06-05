@@ -6,4 +6,3 @@ if __name__ == '__main__':
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     test_model(cfg)
-    
