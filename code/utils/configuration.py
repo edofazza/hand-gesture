@@ -2,7 +2,7 @@ import yaml
 
 
 def create_configuration_file(
-        model_name='resnet-50',
+        model_name='resnet-fc-50',
         pretrained_weights=True,
         finetune_layer='fc',
         pretrain_CIFAR=False,

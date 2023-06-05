@@ -78,7 +78,7 @@ def get_efficientnet(model_name, pretrained_weights=False):
 
 
 def get_model(model_name: str, pretrained_weights, finetune_layer, pretrained_model, num_classes,
-              pretrain_on_CIFAR=False, layers=None, growth_rate=32):
+              layers=None, growth_rate=32):
     if model_name.startswith('resnet'):
         model = get_resnet(model_name, pretrained_weights)
         shape = (224, 224)
