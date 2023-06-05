@@ -74,12 +74,12 @@ def create_configuration_file(
         # GENERAL
         'seed': seed,
     }
-    with open('config.yaml', 'wb') as f:
+    with open('config.yaml', 'w') as f:
         yaml.dump(dictionary, f)
 
 
 def load_configuration_file(config_path):
-    with open(config_path, 'rb') as f:
+    with open(config_path, 'r') as f:
         cfg = yaml.safe_load(f)
     return cfg
 
