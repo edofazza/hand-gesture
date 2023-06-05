@@ -147,7 +147,7 @@ def train_model(cfg):
     # check if model directory is present
     if not os.path.exists(os.path.join('models', model_name)):
         os.makedirs(os.path.join('models', model_name))
-        os.makedirs(os.path.join('models', model_name, 'losses'))
+        os.makedirs(os.path.join('models', model_name, 'performance'))
 
     # check if cuda is available and set device along with cuda seed
     device = get_device(seed)
@@ -159,7 +159,7 @@ def train_model(cfg):
     best_loss = 999999
     convergence = 0
 
-    # logging of diverse losses
+    # logging of diverse performance
     train_losses = []
     train_accuracies = []
     train_f1_scores = []
@@ -253,12 +253,12 @@ def train_model(cfg):
             print('Model converged')
             break
 
-    np.save(os.path.join('models', model_name, 'losses', 'val_losses.npy'), train_losses)
-    np.save(os.path.join('models', model_name, 'losses', 'val_accuracies.npy'), train_accuracies)
-    np.save(os.path.join('models', model_name, 'losses', 'val_f1_scores.npy'), train_f1_scores)
-    np.save(os.path.join('models', model_name, 'losses', 'val_losses.npy'), val_losses)
-    np.save(os.path.join('models', model_name, 'losses', 'val_accuracies.npy'), val_accuracies)
-    np.save(os.path.join('models', model_name, 'losses', 'val_f1_scores.npy'), val_f1_scores)
+    np.save(os.path.join('models', model_name, 'performance', 'train_losses.npy'), train_losses)
+    np.save(os.path.join('models', model_name, 'performance', 'train_accuracies.npy'), train_accuracies)
+    np.save(os.path.join('models', model_name, 'performance', 'train_f1_scores.npy'), train_f1_scores)
+    np.save(os.path.join('models', model_name, 'performance', 'val_losses.npy'), val_losses)
+    np.save(os.path.join('models', model_name, 'performance', 'val_accuracies.npy'), val_accuracies)
+    np.save(os.path.join('models', model_name, 'performance', 'val_f1_scores.npy'), val_f1_scores)
 
 
 def test_model(cfg):
@@ -280,11 +280,11 @@ def test_model(cfg):
     criterion = nn.CrossEntropyLoss()
 
     test_loss, test_acc, test_f1, conf_matrix = test(test_loader, model, criterion, device)
-    with open(os.path.join('models', model_name, 'test_results.txt'), 'w') as f:
+    with open(os.path.join('models', model_name, 'performance', 'test_results.txt'), 'w') as f:
         f.write('Test loss: {:.3f}, Test accuracy: {:.3f}, Test Macro F1-score: {:.3f}'.format(test_loss, test_acc, test_f1))
 
     df_cm = pd.DataFrame(conf_matrix, index=[i for i in os.listdir(os.path.join('sets', 'training'))],
                          columns=[i for i in os.listdir(os.path.join('sets', 'training'))])
     plt.figure(figsize=(10, 10))
     sn.heatmap(df_cm, annot=True)
-    plt.imsave(os.path.join('models', model_name, 'confusion_matrix.png'))
+    plt.imsave(os.path.join('models', model_name, 'performance', 'confusion_matrix.png'))
