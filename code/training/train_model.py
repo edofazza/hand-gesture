@@ -267,12 +267,6 @@ def test_model(cfg):
     model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'], num_classes)
     device = get_device(cfg['seed'])
 
-    if os.path.exists(os.path.join('models', model_name, f'{model_name}.pkl')):
-        model.load_state_dict(torch.load(os.path.join('models', model_name, f'{model_name}.pkl')))
-    else:
-        print(f'Model {model_name} not present')
-        return
-
     model.to(device)
     model.eval()
 

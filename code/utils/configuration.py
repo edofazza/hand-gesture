@@ -6,7 +6,7 @@ def create_configuration_file(
         pretrained_weights=True,
         finetune_layer='fc',
         pretrain_CIFAR=False,
-        pretrained_model=False,
+        pretrained_model=False,     # get trained weights
         layers=[3, 3, 3],
         growth_rate=32,
         # TRAINING PARAMETERS
