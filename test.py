@@ -6,14 +6,14 @@ from code.utils.configuration import create_configuration_file, load_configurati
 if __name__ == '__main__':
     os.environ['TORCH_HOME'] = './cache'
 
-    create_configuration_file(model_name='densenet-fc-121')
+    create_configuration_file(model_name='densenet-classifier-121', finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     cfg['pretrained_weights'] = False
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='vgg-fc-16')
+    create_configuration_file(model_name='vgg-fc-16', finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     cfg['pretrained_weights'] = False
@@ -27,7 +27,7 @@ if __name__ == '__main__':
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='efficientnet_fc_b0')
+    create_configuration_file(model_name='efficientnet_fc_b0', finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     cfg['pretrained_weights'] = False
@@ -55,14 +55,14 @@ if __name__ == '__main__':
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='densenet-scratch-121', pretrained_weights=False)
+    create_configuration_file(model_name='densenet-scratch-121', pretrained_weights=False, finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     cfg['pretrained_weights'] = False
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='vgg-scratch-16', pretrained_weights=False)
+    create_configuration_file(model_name='vgg-scratch-16', pretrained_weights=False, finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     cfg['pretrained_weights'] = False
@@ -76,7 +76,7 @@ if __name__ == '__main__':
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='efficientnet_scratch_b0', pretrained_weights=False)
+    create_configuration_file(model_name='efficientnet_scratch_b0', pretrained_weights=False, finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     cfg['pretrained_weights'] = False
