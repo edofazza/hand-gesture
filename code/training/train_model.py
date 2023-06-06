@@ -245,7 +245,7 @@ def train_model(cfg):
         if val_loss <= best_loss:
             best_loss = val_loss
             print('Saving model')
-            torch.save(model.state_dict(), os.path.join('models', model_name, f'{model_name},pkl'))
+            torch.save(model.state_dict(), os.path.join('models', model_name, f'{model_name}.pkl'))
             convergence = 0
         else:
             convergence += 1
@@ -264,7 +264,7 @@ def train_model(cfg):
 
 def test_model(cfg):
     model_name = cfg['model_name']
-    num_classes = os.listdir(os.path.join('sets', 'training'))
+    num_classes = len(os.listdir(os.path.join('sets', 'training')))
     model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
                              num_classes)
     device = get_device(cfg['seed'])
