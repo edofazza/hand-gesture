@@ -8,4 +8,6 @@ if __name__ == '__main__':
     create_configuration_file()
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
     test_model(cfg)

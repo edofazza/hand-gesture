@@ -21,8 +21,7 @@ def create_sets(original_folder_path):
     # Move directories to the new folders
     for i, directory in enumerate(directories):
         images = os.listdir(os.path.join(original_folder_path, directory))
-        total_images = 140  # len(images)
-        len(images)
+        total_images = len(images)
         training_count = int(total_images * 0.7)
         validation_count = int(total_images * 0.2)
 
