@@ -220,7 +220,7 @@ def train_model(cfg):
         scheduler = None
 
     criterion = nn.CrossEntropyLoss()
-
+    model.to(device)
     for epoch in range(0, epochs):
         print(f'Epoch: {epoch}')
         train_loss, train_acc, train_f1 = train(
