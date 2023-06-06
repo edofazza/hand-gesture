@@ -5,28 +5,6 @@ from code.utils.configuration import create_configuration_file, load_configurati
 
 if __name__ == '__main__':
     os.environ['TORCH_HOME'] = './cache'
-    # RESNET 50
-    create_configuration_file()
-    cfg = load_configuration_file('config.yaml')
-    train_model(cfg)
-    cfg['pretrained_weights'] = False
-    cfg['pretrained_model'] = True
-    test_model(cfg)
-
-    #
-    create_configuration_file(model_name='resnet-fc-18')
-    cfg = load_configuration_file('config.yaml')
-    train_model(cfg)
-    cfg['pretrained_weights'] = False
-    cfg['pretrained_model'] = True
-    test_model(cfg)
-
-    create_configuration_file(model_name='resnet-fc-101')
-    cfg = load_configuration_file('config.yaml')
-    train_model(cfg)
-    cfg['pretrained_weights'] = False
-    cfg['pretrained_model'] = True
-    test_model(cfg)
 
     create_configuration_file(model_name='densenet-fc-121')
     cfg = load_configuration_file('config.yaml')
