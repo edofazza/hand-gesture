@@ -40,7 +40,8 @@ def create_sets(original_folder_path):
 
 def create_dataloader(set_path, transform, batch_size=1024):
     set_data = torchvision.datasets.ImageFolder(root=set_path, transform=transform)
-    set_loader = data.DataLoader(set_data, batch_size=batch_size, shuffle=True)
+    set_loader = data.DataLoader(set_data, batch_size=batch_size, shuffle=True, num_workers=8, prefetch_factor=8,
+                                 pin_memory=True, persistent_workers=True)
     return set_loader
 
 
