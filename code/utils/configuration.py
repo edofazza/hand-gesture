@@ -11,14 +11,14 @@ def create_configuration_file(
         growth_rate=32,
         # TRAINING PARAMETERS
         batch_size= 1024,
-        epochs=1000,
+        epochs=500,
         dataset_path='hand_gestures',
         learning_rate=0.001,
         optimizer_scheduler=True,
         scheduler_gamma=0.2,
-        scheduler_patience=100,
+        scheduler_patience=10,
         scheduler_threshold=1e-4,
-        convergence=50,
+        convergence=20,
         # DATA AUGMENTATION PARAMETERS
         fliplr=True,
         fliplr_value=0.5,
