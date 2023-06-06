@@ -108,6 +108,7 @@ def get_model(model_name: str, pretrained_weights, finetune_layer, pretrained_mo
         return None
 
     if model is None:
+        print('Model is None')
         return None
 
     model.fc = nn.Linear(model.fc.in_features, num_classes)

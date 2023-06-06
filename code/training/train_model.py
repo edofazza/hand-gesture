@@ -265,7 +265,8 @@ def train_model(cfg):
 def test_model(cfg):
     model_name = cfg['model_name']
     num_classes = os.listdir(os.path.join('sets', 'training'))
-    model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'], num_classes)
+    model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
+                             num_classes)
     device = get_device(cfg['seed'])
 
     model.to(device)
