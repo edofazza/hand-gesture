@@ -180,7 +180,7 @@ def train_model(cfg):
         model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
                                  num_classes)
         model.to(device)
-
+    shape = (50, 50)
     # dataset and augmentation
     transforms_list = [transforms.Resize(shape)]
 
@@ -221,7 +221,7 @@ def train_model(cfg):
 
     criterion = nn.CrossEntropyLoss()
     model.to(device)
-    print(device)
+
     for epoch in range(0, epochs):
         print(f'Epoch: {epoch}')
         train_loss, train_acc, train_f1 = train(
