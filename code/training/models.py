@@ -124,8 +124,8 @@ def get_model(model_name: str, pretrained_weights, finetune_layer, pretrained_mo
                 param.requires_grad = False
 
     if pretrained_model:
-        if os.path.exists(os.path.join('model', model_name, f'{model_name}.pkl')):
-            model.load_state_dict(torch.load(os.path.join('model', model_name, f'{model_name}.pkl')))
+        if os.path.exists(os.path.join('models', model_name, f'{model_name}.pkl')):
+            model.load_state_dict(torch.load(os.path.join('models', model_name, f'{model_name}.pkl')))
             print('Weights loaded')
         else:
             print('Error in loading weights')

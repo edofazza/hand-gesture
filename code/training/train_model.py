@@ -289,4 +289,4 @@ def test_model(cfg):
                          columns=[i for i in os.listdir(os.path.join('sets', 'training'))])
     plt.figure(figsize=(10, 10))
     sn.heatmap(df_cm, annot=True)
-    plt.imsave(os.path.join('models', model_name, 'performance', 'confusion_matrix.png'))
+    plt.savefig(os.path.join('models', model_name, 'performance', 'confusion_matrix.png'))
