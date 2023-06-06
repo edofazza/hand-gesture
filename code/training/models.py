@@ -55,18 +55,6 @@ def get_vgg(model_name, pretrained_weights=False):
 
 def get_inception(model_name, pretrained_weights=False):
     model = None
-    if model_name.endswith('b0'):
-        if pretrained_weights:
-            model = efficientnet_b0(weights='IMAGENET1K_V1')
-        else:
-            model = efficientnet_b0()
-    else:
-        print('EfficientNet model selected not present, try EfficientNet_b0')
-    return model
-
-
-def get_efficientnet(model_name, pretrained_weights=False):
-    model = None
     if model_name.endswith('v3'):
         if pretrained_weights:
             model = inception_v3(weights='IMAGENET1K_V1')
@@ -74,6 +62,18 @@ def get_efficientnet(model_name, pretrained_weights=False):
             model = inception_v3()
     else:
         print('Inception model selected not present, try inception_v3')
+    return model
+
+
+def get_efficientnet(model_name, pretrained_weights=False):
+    model = None
+    if model_name.endswith('b0'):
+        if pretrained_weights:
+            model = efficientnet_b0(weights='IMAGENET1K_V1')
+        else:
+            model = efficientnet_b0()
+    else:
+        print('EfficientNet model selected not present, try EfficientNet_b0')
     return model
 
 

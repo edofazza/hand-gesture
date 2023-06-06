@@ -6,13 +6,6 @@ from code.utils.configuration import create_configuration_file, load_configurati
 if __name__ == '__main__':
     os.environ['TORCH_HOME'] = './cache'
 
-    create_configuration_file(model_name='vgg-classifier-16', finetune_layer='classifier')
-    cfg = load_configuration_file('config.yaml')
-    train_model(cfg)
-    cfg['pretrained_weights'] = False
-    cfg['pretrained_model'] = True
-    test_model(cfg)
-
     create_configuration_file(model_name='inception_fc_v3')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
