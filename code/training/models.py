@@ -113,8 +113,10 @@ def get_model(model_name: str, pretrained_weights, finetune_layer, pretrained_mo
 
     if model_name.startswith('resnet') or model_name.startswith('inception'):
         model.fc = nn.Linear(model.fc.in_features, num_classes)
-    elif model_name.startswith('densenet') or model_name.startswith('vgg') or model_name.startswith('efficientnet'):
+    elif model_name.startswith('densenet'):
         model.classifier = nn.Linear(model.classifier.in_features, num_classes)
+    elif model_name.startswith('vgg') or model_name.startswith('efficientnet'):
+        model.classifier[-1] = nn.Linear(model.classifier[-1].in_features, num_classes)
 
     if pretrained_weights:
         found_start_layer = False
