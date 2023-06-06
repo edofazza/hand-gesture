@@ -180,7 +180,7 @@ def train_model(cfg):
         model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
                                  num_classes)
         model.to(device)
-    shape = (50, 50)
+    
     # dataset and augmentation
     transforms_list = [transforms.Resize(shape)]
 

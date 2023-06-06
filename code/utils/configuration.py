@@ -10,7 +10,7 @@ def create_configuration_file(
         layers=[3, 3, 3],
         growth_rate=32,
         # TRAINING PARAMETERS
-        batch_size= 1024,
+        batch_size=128,
         epochs=500,
         dataset_path='hand_gestures',
         learning_rate=0.001,
