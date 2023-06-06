@@ -62,6 +62,7 @@ def get_inception(model_name, pretrained_weights=False):
             model = inception_v3()
     else:
         print('Inception model selected not present, try inception_v3')
+    model.aux_logits = False
     return model
 
 
