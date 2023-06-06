@@ -8,12 +8,11 @@ if __name__ == '__main__':
 
     create_configuration_file(model_name='densenet-classifier-121', finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
-    train_model(cfg)
     cfg['pretrained_weights'] = False
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='vgg-fc-16', finetune_layer='classifier')
+    create_configuration_file(model_name='vgg-classifier-16', finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     cfg['pretrained_weights'] = False
@@ -27,7 +26,7 @@ if __name__ == '__main__':
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='efficientnet_fc_b0', finetune_layer='classifier')
+    create_configuration_file(model_name='efficientnet_classifier_b0', finetune_layer='classifier')
     cfg = load_configuration_file('config.yaml')
     train_model(cfg)
     cfg['pretrained_weights'] = False
