@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sn
 import pandas as pd
+from tqdm import tqdm
 
 from code.training.models import get_model
 from code.training.auxiliary import create_sets, create_dataloader, get_device
@@ -22,7 +23,7 @@ def train(train_loader, model, optimizer, criterion, device):
     predicted_labels = []
     total = 0
 
-    for images, labels in train_loader:
+    for images, labels in tqdm(train_loader):
         optimizer.zero_grad()
         images, labels = images.to(device), labels.to(device)
 
