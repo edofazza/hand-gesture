@@ -221,6 +221,7 @@ def train_model(cfg):
 
     criterion = nn.CrossEntropyLoss()
     model.to(device)
+    print(device)
     for epoch in range(0, epochs):
         print(f'Epoch: {epoch}')
         train_loss, train_acc, train_f1 = train(
