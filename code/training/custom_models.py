@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 """
     CUSTOM RESNET
@@ -140,8 +141,8 @@ class CustomDenseNet(nn.Module):
         x = self.dense_transition_blocks(x)
 
         x = self.bn_final(x)
-        x = torch.relu(x)
-        # x = torch.adaptive_avg_pool2d(x, (1, 1))
+        x = F.relu(x, inplace=True)
+        x = F.adaptive_avg_pool2d(x, (1, 1))
         x = torch.flatten(x, 1)
         x = self.fc(x)
 
