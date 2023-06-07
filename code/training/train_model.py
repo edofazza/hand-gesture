@@ -94,8 +94,10 @@ def train_on_mnist(model_name, model, shape, device):
     train_dataset = torchvision.datasets.CIFAR10(root='.', train=True, transform=transform_train, download=True)
     test_dataset = torchvision.datasets.CIFAR10(root='.', train=False, transform=transform_test, download=True)
 
-    train_loader = data.DataLoader(train_dataset, batch_size=64, shuffle=True)
-    test_loader = data.DataLoader(test_dataset, batch_size=64, shuffle=False)
+    train_loader = data.DataLoader(train_dataset, batch_size=64, shuffle=True, num_workers=4, prefetch_factor=8,
+                                 pin_memory=True, persistent_workers=True)
+    test_loader = data.DataLoader(test_dataset, batch_size=64, shuffle=False, num_workers=4, prefetch_factor=8,
+                                 pin_memory=True, persistent_workers=True)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -117,7 +119,7 @@ def train_on_mnist(model_name, model, shape, device):
         if test_loss <= best_loss:
             best_loss = test_loss
             print('Saving model')
-            torch.save(model.state_dict(), os.path.join('models', model_name, f'{model_name},pkl'))
+            torch.save(model.state_dict(), os.path.join('models', model_name, f'{model_name}.pkl'))
             convergence = 0
         else:
             convergence += 1
