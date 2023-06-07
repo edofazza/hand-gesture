@@ -111,23 +111,21 @@ class CustomDenseNet(nn.Module):
 
         # Dense blocks
         num_features = self.num_init_features
-        dense_blocks_list = []
-        transition_blocks_list = []
+        layers = []
         self.num_blocks = len(block_config)
 
         for i, num_blocks in enumerate(block_config):
             dense_block = self._make_dense_block(num_features, num_blocks)
-            dense_blocks_list.append(dense_block)
+            layers.append(dense_block)
 
             num_features += num_blocks * growth_rate
 
             if i != self.num_blocks - 1:
                 transition_block = self._make_transition_block(num_features)
-                transition_blocks_list.append(transition_block)
+                layers.append(transition_block)
 
                 num_features //= 2
-        self.dense_blocks = nn.Sequential(*dense_blocks_list)
-        self.transition_blocks = nn.Sequential(*transition_blocks_list)
+        self.dense_transition_blocks = nn.Sequential(*layers)
 
         # Batch normalization and fully connected layer
         self.bn_final = nn.BatchNorm2d(num_features)
@@ -139,15 +137,11 @@ class CustomDenseNet(nn.Module):
         x = self.relu(x)
         x = self.maxpool(x)
 
-        for i in range(self.num_blocks):
-            x = self.dense_blocks[i](x)
-
-            if i != self.num_blocks - 1:
-                x = self.transition_blocks[i](x)
+        x = self.dense_transition_blocks(x)
 
         x = self.bn_final(x)
         x = torch.relu(x)
-        x = torch.adaptive_avg_pool2d(x, (1, 1))
+        x = torch.nn.AdaptiveAvgPool2d(x, (1, 1))
         x = torch.flatten(x, 1)
         x = self.fc(x)
 

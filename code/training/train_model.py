@@ -91,8 +91,8 @@ def train_on_mnist(model_name, model, shape, device):
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
 
-    train_dataset = torchvision.datasets.CIFAR10(root='.', train=True, transform=transform_train)
-    test_dataset = torchvision.datasets.CIFAR10(root='.', train=False, transform=transform_test)
+    train_dataset = torchvision.datasets.CIFAR10(root='.', train=True, transform=transform_train, download=True)
+    test_dataset = torchvision.datasets.CIFAR10(root='.', train=False, transform=transform_test, download=True)
 
     train_loader = data.DataLoader(train_dataset, batch_size=64, shuffle=True)
     test_loader = data.DataLoader(test_dataset, batch_size=64, shuffle=False)
