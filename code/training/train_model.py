@@ -170,14 +170,14 @@ def train_model(cfg):
     # pretrain the model on CIFAR-10
     if cfg['pretrain_CIFAR']:
         model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
-                                 10)
+                                 10, cfg['layers'])
         model.to(device)
         train_on_mnist(model_name, model, shape, device)
         model.load_state_dict(torch.load(os.path.join('model', model_name, f'{model_name}.pkl')))
         model.fc = nn.Linear(model.fc.in_features, num_classes)
     else:
         model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
-                                 num_classes)
+                                 num_classes, cfg['layers'])
         model.to(device)
 
     # dataset and augmentation
@@ -266,7 +266,7 @@ def test_model(cfg):
     model_name = cfg['model_name']
     num_classes = len(os.listdir(os.path.join('sets', 'training')))
     model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
-                             num_classes, )
+                             num_classes, cfg['layers'])
     device = get_device(cfg['seed'])
 
     model.to(device)
