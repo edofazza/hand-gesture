@@ -111,21 +111,23 @@ class CustomDenseNet(nn.Module):
 
         # Dense blocks
         num_features = self.num_init_features
-        self.dense_blocks = nn.ModuleList([])
-        self.transition_blocks = nn.ModuleList([])
+        dense_blocks_list = []
+        transition_blocks_list = []
         self.num_blocks = len(block_config)
 
         for i, num_blocks in enumerate(block_config):
             dense_block = self._make_dense_block(num_features, num_blocks)
-            self.dense_blocks.append(dense_block)
+            dense_blocks_list.append(dense_block)
 
             num_features += num_blocks * growth_rate
 
             if i != self.num_blocks - 1:
                 transition_block = self._make_transition_block(num_features)
-                self.transition_blocks.append(transition_block)
+                transition_blocks_list.append(transition_block)
 
                 num_features //= 2
+        self.dense_blocks = nn.Sequential(*dense_blocks_list)
+        self.transition_blocks = nn.Sequential(*transition_blocks_list)
 
         # Batch normalization and fully connected layer
         self.bn_final = nn.BatchNorm2d(num_features)
