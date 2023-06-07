@@ -77,7 +77,7 @@ def test(test_loader, model, criterion, device):
     return test_loss, test_acc, test_f1, conf_matrix
 
 
-def train_on_mnist(model_name, model, shape, device):
+def train_on_cifar(model_name, model, shape, device):
     transform_train = transforms.Compose([
         transforms.Resize(shape),
         transforms.RandomHorizontalFlip(),
@@ -174,8 +174,8 @@ def train_model(cfg):
         model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
                                  10, cfg['layers'])
         model.to(device)
-        train_on_mnist(model_name, model, shape, device)
-        model.load_state_dict(torch.load(os.path.join('model', model_name, f'{model_name}.pkl')))
+        train_on_cifar(model_name, model, shape, device)
+        model.load_state_dict(torch.load(os.path.join('models', model_name, f'{model_name}.pkl')))
         model.fc = nn.Linear(model.fc.in_features, num_classes)
     else:
         model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
