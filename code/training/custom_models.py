@@ -141,7 +141,7 @@ class CustomDenseNet(nn.Module):
 
         x = self.bn_final(x)
         x = torch.relu(x)
-        x = torch.nn.AdaptiveAvgPool2d(x, (1, 1))
+        # x = torch.adaptive_avg_pool2d(x, (1, 1))
         x = torch.flatten(x, 1)
         x = self.fc(x)
 
@@ -295,12 +295,13 @@ class CustomSEResNet(nn.Module):
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
-        self.layers = nn.ModuleList([])
+        layers_list = []
         for i, num_blocks in enumerate(layers):
             stride = 1 if i == 0 else 2
-            self.layers.append(self._make_layer(
+            layers_list.append(self._make_layer(
                 block, 64 * (2 ** i), num_blocks, stride, reduction_ratio
             ))
+        self.layers = nn.Sequential(*layers_list)
 
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(64 * (2 ** (len(layers)-1)) * block.expansion, num_classes)
