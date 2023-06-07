@@ -280,7 +280,7 @@ def test_model(cfg):
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
 
-    test_loader = create_dataloader(os.path.join('sets', 'validation'), transform, cfg['batch_size'])
+    test_loader = create_dataloader(os.path.join('sets', 'test'), transform, cfg['batch_size'])
     criterion = nn.CrossEntropyLoss()
 
     test_loss, test_acc, test_f1, conf_matrix = test(test_loader, model, criterion, device)
