@@ -26,7 +26,7 @@ class CustomResNet(nn.Module):
 
         # Average pooling and fully connected layer
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(512, num_classes)
+        self.fc = nn.Linear(64 * (2 ** len(layers)), num_classes)
 
     def forward(self, x):
         x = self.conv1(x)
@@ -302,11 +302,11 @@ class CustomSEResNet(nn.Module):
         for i, num_blocks in enumerate(layers):
             stride = 1 if i == 0 else 2
             self.layers.append(self._make_layer(
-                block, 64 * (2 ** i), 64 * (2 ** (i + 1)), stride, reduction_ratio
+                block, 64 * (2 ** i), num_blocks, stride, reduction_ratio
             ))
 
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(512 * block.expansion, num_classes)
+        self.fc = nn.Linear(64 * (2 ** (len(layers)-1)) * block.expansion, num_classes)
 
         self.init_weights()
 
