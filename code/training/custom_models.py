@@ -17,12 +17,13 @@ class CustomResNet(nn.Module):
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
 
         # Residual blocks
-        self.layers = nn.ModuleList([])
+        layers_list = []
         for i, num_blocks in enumerate(layers):
             stride = 1 if i == 0 else 2
-            self.layers.append(self._make_layer(
+            self.layers_list.append(self._make_layer(
                 64 * (2 ** i), 64 * (2 ** (i + 1)), num_blocks, stride=stride
             ))
+        self.layers = nn.Sequential(*layers_list)
 
         # Average pooling and fully connected layer
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
