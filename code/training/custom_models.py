@@ -20,7 +20,7 @@ class CustomResNet(nn.Module):
         layers_list = []
         for i, num_blocks in enumerate(layers):
             stride = 1 if i == 0 else 2
-            self.layers_list.append(self._make_layer(
+            layers_list.append(self._make_layer(
                 64 * (2 ** i), 64 * (2 ** (i + 1)), num_blocks, stride=stride
             ))
         self.layers = nn.Sequential(*layers_list)
