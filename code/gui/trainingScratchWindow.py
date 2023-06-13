@@ -10,8 +10,8 @@ from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-from models import get_model_layers
-from configuration import create_configuration_file
+from code.training.models import get_model_layers
+from code.utils.configuration import create_configuration_file
 
 
 class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
