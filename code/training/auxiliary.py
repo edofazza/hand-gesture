@@ -6,7 +6,7 @@ import torch
 from torch.utils import data
 
 
-def create_sets(original_folder_path):
+def create_sets(original_folder_path, total=None):
     training_folder_path = "sets/training"
     validation_folder_path = "sets/validation"
     test_folder_path = "sets/test"
@@ -22,6 +22,8 @@ def create_sets(original_folder_path):
     for i, directory in enumerate(directories):
         images = os.listdir(os.path.join(original_folder_path, directory))
         total_images = len(images)
+        if total is not None:
+            total_images = total
         training_count = int(total_images * 0.7)
         validation_count = int(total_images * 0.2)
 
