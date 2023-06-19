@@ -13,7 +13,7 @@ import pandas as pd
 
 from code.training.models import get_model
 from code.training.auxiliary import create_sets, create_dataloader, get_device
-
+from code.utils.performance import folder_to_zip
 
 def train(train_loader, model, optimizer, criterion, device):
     model.train()
@@ -292,3 +292,4 @@ def test_model(cfg):
     plt.figure(figsize=(10, 10))
     sn.heatmap(df_cm, annot=True)
     plt.savefig(os.path.join('models', model_name, 'performance', 'confusion_matrix.png'))
+    folder_to_zip(os.path.join('models', model_name, 'performance'))
