@@ -40,8 +40,16 @@ def read_test_best() -> tuple:
     return loss, acc, f1
 
 
-def prepare_data_for_gui(zip_path: str = 'models/resnet-fc-18/performance.zip') -> tuple:
+def prepare_data_for_gui_zip(zip_path: str = 'models/resnet-fc-18/performance.zip') -> tuple:
     performance_folder = zip_to_folder(zip_path)
+    plot(performance_folder, True)
+    plot(performance_folder, False)
+    test_loss, test_acc, test_f1 = read_test_best()
+    return os.path.join(performance_folder, 'accuracy_plot.png'), os.path.join(performance_folder, 'loss_plot.png'),\
+           test_loss, test_acc, test_f1
+
+
+def prepare_data_for_gui(performance_folder: str = 'models/resnet-fc-18/performance/') -> tuple:
     plot(performance_folder, True)
     plot(performance_folder, False)
     test_loss, test_acc, test_f1 = read_test_best()
