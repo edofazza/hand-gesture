@@ -16,7 +16,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget,QMainWindow)
+    QVBoxLayout, QWidget)
 
 class Ui_HomeWindow(object):
     def setupUi(self, HomeWindow):
@@ -37,11 +37,6 @@ class Ui_HomeWindow(object):
 
         self.verticalLayout.addWidget(self.perfButton)
 
-        self.liveTestButton = QPushButton(HomeWindow)
-        self.liveTestButton.setObjectName(u"liveTestButton")
-
-        self.verticalLayout.addWidget(self.liveTestButton)
-
         self.exitButton = QPushButton(HomeWindow)
         self.exitButton.setObjectName(u"exitButton")
 
@@ -60,7 +55,6 @@ class Ui_HomeWindow(object):
         HomeWindow.setWindowTitle(QCoreApplication.translate("HomeWindow", u"Hand gesture recognition", None))
         self.trainButton.setText(QCoreApplication.translate("HomeWindow", u"Train Network", None))
         self.perfButton.setText(QCoreApplication.translate("HomeWindow", u"Network Performances", None))
-        self.liveTestButton.setText(QCoreApplication.translate("HomeWindow", u"Live Camera Test", None))
         self.exitButton.setText(QCoreApplication.translate("HomeWindow", u"Exit", None))
     # retranslateUi
 

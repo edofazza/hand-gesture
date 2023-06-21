@@ -5,13 +5,19 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from models import get_model_layers
-from configuration import create_configuration_file
-from train_model import test
+from configuration import create_configuration_file, load_configuration_file
+from train_model import train_model, test_model
+from performance import *
+from PIL import Image
+import numpy as np
+from matplotlib import pyplot as plt
+from ui_plotDialog import Ui_plotDialog
 
 class perfWindow(QWidget, Ui_perfWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+
 
         self.loadTrainedNetworkButton.clicked.connect(self.loadTrainedNetwork)
         self.plotLossButton.clicked.connect(self.plotLoss)
@@ -20,37 +26,45 @@ class perfWindow(QWidget, Ui_perfWindow):
         self.plotConfusionMatrixButton.clicked.connect(self.plotConfusionMatrix)
         self.cancelButton.clicked.connect(self.cancel)
 
-        gui_test_loader = any
-        gui_model = any
-        gui_criterion = any
-        gui_device = any
-
-        gui_test_loss = any
-        gui_test_acc = any
-        gui_test_f1 = any
-        gui_conf_matrix = any
 
     def loadTrainedNetwork(self):
         #open the file dialog
-        [gui_test_loader, gui_model, gui_criterion, gui_device] = QFileDialog.getOpenFileName(
-            self,"Open File","C:/Users/Workstation-1/OneDrive - Scuola Superiore Sant'Anna/DL project/Qt GUI"
-            )
+        dataFile = QFileDialog.getExistingDirectory(self,"Open File","C:/Users/Workstation-1/OneDrive - Scuola Superiore Sant'Anna/DL project/Qt GUI/models",)
         
         #update the label with file directory
-        if [gui_test_loader, gui_model, gui_criterion, gui_device]:
-            self.trainedNetworkLabel.setText("Filed loaded")
+        if dataFile:
+            self.trainedNetworkLabel.setText(dataFile)
+            prepare_data_for_gui()
 
+
+    def openPlot(self,path):
+        self.window = QDialog()
+        self.ui = Ui_plotDialog()
+        self.ui.setupUi(self.window)
+        plot = QPixmap(path)
+        self.ui.plotLabel.setScaledContents(True)
+        self.ui.plotLabel.setPixmap(plot)
+        self.window.show()
+        
     def plotLoss(self):
-        self.close()
+        path = self.trainedNetworkLabel.text()
+        path = path + '/performance/loss_plot.png'
+        self.openPlot(path)
     
     def plotAccuracy(self):
-        self.close()
+        path = self.trainedNetworkLabel.text()
+        path = path + '/performance/accuracy_plot.png'
+        self.openPlot(path)
     
     def accuracyF1(self):
-        self.close()
+        path = self.trainedNetworkLabel.text()
+        path = path + '/performance/F1_score_plot.png.png'
+        self.openPlot(path)
 
     def plotConfusionMatrix(self):
-        self.close()
+        path = self.trainedNetworkLabel.text()
+        path = path + '/performance/confusion_matrix.png'
+        self.openPlot(path)
 
     def cancel(self):
         self.close()

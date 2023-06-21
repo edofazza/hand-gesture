@@ -24,16 +24,16 @@ class Ui_TrainingScratchWindow(object):
     def setupUi(self, TrainingScratchWindow):
         if not TrainingScratchWindow.objectName():
             TrainingScratchWindow.setObjectName(u"TrainingScratchWindow")
-        TrainingScratchWindow.resize(842, 767)
+        TrainingScratchWindow.resize(841, 816)
         self.dataLabel = QLabel(TrainingScratchWindow)
         self.dataLabel.setObjectName(u"dataLabel")
         self.dataLabel.setGeometry(QRect(20, 0, 201, 24))
         self.finetuningGroupBox = QGroupBox(TrainingScratchWindow)
         self.finetuningGroupBox.setObjectName(u"finetuningGroupBox")
-        self.finetuningGroupBox.setGeometry(QRect(20, 70, 91, 80))
+        self.finetuningGroupBox.setGeometry(QRect(20, 130, 91, 80))
         self.finetuningGroupBox.setContextMenuPolicy(Qt.PreventContextMenu)
         self.finetuningGroupBox.setLayoutDirection(Qt.LeftToRight)
-        self.finetuningGroupBox.setFlat(False)
+        self.finetuningGroupBox.setFlat(True)
         self.finetuningGroupBox.setCheckable(False)
         self.ftYesRadioButton = QRadioButton(self.finetuningGroupBox)
         self.ftYesRadioButton.setObjectName(u"ftYesRadioButton")
@@ -46,7 +46,7 @@ class Ui_TrainingScratchWindow(object):
         self.ftNoRadioButton.setChecked(True)
         self.DataAugmentationFrame = QFrame(TrainingScratchWindow)
         self.DataAugmentationFrame.setObjectName(u"DataAugmentationFrame")
-        self.DataAugmentationFrame.setGeometry(QRect(30, 200, 401, 511))
+        self.DataAugmentationFrame.setGeometry(QRect(20, 240, 401, 511))
         self.DataAugmentationFrame.setFrameShape(QFrame.Box)
         self.DataAugmentationFrame.setFrameShadow(QFrame.Raised)
         self.layoutWidget_3 = QWidget(self.DataAugmentationFrame)
@@ -60,8 +60,13 @@ class Ui_TrainingScratchWindow(object):
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.label_17 = QLabel(self.layoutWidget_3)
         self.label_17.setObjectName(u"label_17")
+        self.label_17.setTextFormat(Qt.AutoText)
 
         self.horizontalLayout_10.addWidget(self.label_17)
+
+        self.horizontalSpacer_20 = QSpacerItem(48, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_10.addItem(self.horizontalSpacer_20)
 
         self.linContrastMinLineEdit = QLineEdit(self.layoutWidget_3)
         self.linContrastMinLineEdit.setObjectName(u"linContrastMinLineEdit")
@@ -70,7 +75,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_10.addWidget(self.linContrastMinLineEdit)
 
-        self.horizontalSpacer_2 = QSpacerItem(54, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(30, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_10.addItem(self.horizontalSpacer_2)
 
@@ -92,6 +97,10 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_11.addWidget(self.label_19)
 
+        self.horizontalSpacer_21 = QSpacerItem(47, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_11.addItem(self.horizontalSpacer_21)
+
         self.linContrastMaxLineEdit = QLineEdit(self.layoutWidget_3)
         self.linContrastMaxLineEdit.setObjectName(u"linContrastMaxLineEdit")
         self.linContrastMaxLineEdit.setEnabled(False)
@@ -99,7 +108,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_11.addWidget(self.linContrastMaxLineEdit)
 
-        self.horizontalSpacer_3 = QSpacerItem(62, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_3 = QSpacerItem(19, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_11.addItem(self.horizontalSpacer_3)
 
@@ -125,6 +134,10 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_12.addWidget(self.label_21)
 
+        self.horizontalSpacer_27 = QSpacerItem(15, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_12.addItem(self.horizontalSpacer_27)
+
         self.affineTransProbaLineEdit = QLineEdit(self.layoutWidget_4)
         self.affineTransProbaLineEdit.setObjectName(u"affineTransProbaLineEdit")
         self.affineTransProbaLineEdit.setEnabled(False)
@@ -132,9 +145,9 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_12.addWidget(self.affineTransProbaLineEdit)
 
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_30 = QSpacerItem(33, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
-        self.horizontalLayout_12.addItem(self.horizontalSpacer_4)
+        self.horizontalLayout_12.addItem(self.horizontalSpacer_30)
 
         self.label_22 = QLabel(self.layoutWidget_4)
         self.label_22.setObjectName(u"label_22")
@@ -154,6 +167,10 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_14.addWidget(self.label_25)
 
+        self.horizontalSpacer_28 = QSpacerItem(49, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_14.addItem(self.horizontalSpacer_28)
+
         self.affineTransMinLineEdit = QLineEdit(self.layoutWidget_4)
         self.affineTransMinLineEdit.setObjectName(u"affineTransMinLineEdit")
         self.affineTransMinLineEdit.setEnabled(False)
@@ -161,7 +178,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_14.addWidget(self.affineTransMinLineEdit)
 
-        self.horizontalSpacer_6 = QSpacerItem(62, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_6 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_14.addItem(self.horizontalSpacer_6)
 
@@ -183,6 +200,10 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_13.addWidget(self.label_23)
 
+        self.horizontalSpacer_29 = QSpacerItem(47, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_13.addItem(self.horizontalSpacer_29)
+
         self.affineTransMaxLineEdit = QLineEdit(self.layoutWidget_4)
         self.affineTransMaxLineEdit.setObjectName(u"affineTransMaxLineEdit")
         self.affineTransMaxLineEdit.setEnabled(False)
@@ -190,7 +211,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_13.addWidget(self.affineTransMaxLineEdit)
 
-        self.horizontalSpacer_5 = QSpacerItem(62, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_5 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_13.addItem(self.horizontalSpacer_5)
 
@@ -219,7 +240,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_26.addWidget(self.affineTransAngleRotLineEdit)
 
-        self.horizontalSpacer_18 = QSpacerItem(62, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_18 = QSpacerItem(19, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_26.addItem(self.horizontalSpacer_18)
 
@@ -248,6 +269,10 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_24.addWidget(self.label_46)
 
+        self.horizontalSpacer_31 = QSpacerItem(48, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_24.addItem(self.horizontalSpacer_31)
+
         self.jitterHueLineEdit = QLineEdit(self.layoutWidget_6)
         self.jitterHueLineEdit.setObjectName(u"jitterHueLineEdit")
         self.jitterHueLineEdit.setEnabled(False)
@@ -255,7 +280,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_24.addWidget(self.jitterHueLineEdit)
 
-        self.horizontalSpacer_16 = QSpacerItem(62, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_16 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_24.addItem(self.horizontalSpacer_16)
 
@@ -274,6 +299,10 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_15.addWidget(self.label_27)
 
+        self.horizontalSpacer_32 = QSpacerItem(48, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_15.addItem(self.horizontalSpacer_32)
+
         self.jitterMinLineEdit = QLineEdit(self.layoutWidget_6)
         self.jitterMinLineEdit.setObjectName(u"jitterMinLineEdit")
         self.jitterMinLineEdit.setEnabled(False)
@@ -281,7 +310,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_15.addWidget(self.jitterMinLineEdit)
 
-        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_7 = QSpacerItem(29, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_15.addItem(self.horizontalSpacer_7)
 
@@ -303,6 +332,10 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_16.addWidget(self.label_29)
 
+        self.horizontalSpacer_33 = QSpacerItem(48, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_16.addItem(self.horizontalSpacer_33)
+
         self.jitterMaxLineEdit = QLineEdit(self.layoutWidget_6)
         self.jitterMaxLineEdit.setObjectName(u"jitterMaxLineEdit")
         self.jitterMaxLineEdit.setEnabled(False)
@@ -310,7 +343,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_16.addWidget(self.jitterMaxLineEdit)
 
-        self.horizontalSpacer_8 = QSpacerItem(62, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_8 = QSpacerItem(18, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_16.addItem(self.horizontalSpacer_8)
 
@@ -333,12 +366,20 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_5.addWidget(self.label)
 
+        self.horizontalSpacer_41 = QSpacerItem(16, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_41)
+
         self.hFlipLineEdit = QLineEdit(self.layoutWidget)
         self.hFlipLineEdit.setObjectName(u"hFlipLineEdit")
         self.hFlipLineEdit.setEnabled(False)
         self.hFlipLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_5.addWidget(self.hFlipLineEdit)
+
+        self.horizontalSpacer_19 = QSpacerItem(32, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_5.addItem(self.horizontalSpacer_19)
 
         self.label_3 = QLabel(self.layoutWidget)
         self.label_3.setObjectName(u"label_3")
@@ -356,8 +397,13 @@ class Ui_TrainingScratchWindow(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.label_2 = QLabel(self.layoutWidget1)
         self.label_2.setObjectName(u"label_2")
+        self.label_2.setTextFormat(Qt.AutoText)
 
         self.horizontalLayout_6.addWidget(self.label_2)
+
+        self.horizontalSpacer_24 = QSpacerItem(15, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_6.addItem(self.horizontalSpacer_24)
 
         self.gBlurSigMinLineEdit = QLineEdit(self.layoutWidget1)
         self.gBlurSigMinLineEdit.setObjectName(u"gBlurSigMinLineEdit")
@@ -365,6 +411,10 @@ class Ui_TrainingScratchWindow(object):
         self.gBlurSigMinLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_6.addWidget(self.gBlurSigMinLineEdit)
+
+        self.horizontalSpacer_22 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_6.addItem(self.horizontalSpacer_22)
 
         self.label_4 = QLabel(self.layoutWidget1)
         self.label_4.setObjectName(u"label_4")
@@ -381,12 +431,20 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_7.addWidget(self.label_14)
 
+        self.horizontalSpacer_25 = QSpacerItem(13, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_25)
+
         self.gBlurSigMaxLineEdit = QLineEdit(self.layoutWidget1)
         self.gBlurSigMaxLineEdit.setObjectName(u"gBlurSigMaxLineEdit")
         self.gBlurSigMaxLineEdit.setEnabled(False)
         self.gBlurSigMaxLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_7.addWidget(self.gBlurSigMaxLineEdit)
+
+        self.horizontalSpacer_23 = QSpacerItem(29, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_23)
 
         self.label_5 = QLabel(self.layoutWidget1)
         self.label_5.setObjectName(u"label_5")
@@ -406,6 +464,10 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_25.addWidget(self.label_48)
 
+        self.horizontalSpacer_26 = QSpacerItem(18, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_25.addItem(self.horizontalSpacer_26)
+
         self.gBlurKernelLineEdit = QLineEdit(self.layoutWidget1)
         self.gBlurKernelLineEdit.setObjectName(u"gBlurKernelLineEdit")
         self.gBlurKernelLineEdit.setEnabled(False)
@@ -413,7 +475,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_25.addWidget(self.gBlurKernelLineEdit)
 
-        self.horizontalSpacer_17 = QSpacerItem(62, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_17 = QSpacerItem(18, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_25.addItem(self.horizontalSpacer_17)
 
@@ -425,13 +487,13 @@ class Ui_TrainingScratchWindow(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_25)
 
-        self.widget = QWidget(self.DataAugmentationFrame)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(1, 1, 135, 511))
-        self.verticalLayout_3 = QVBoxLayout(self.widget)
+        self.layoutWidget2 = QWidget(self.DataAugmentationFrame)
+        self.layoutWidget2.setObjectName(u"layoutWidget2")
+        self.layoutWidget2.setGeometry(QRect(1, 1, 135, 511))
+        self.verticalLayout_3 = QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.hFlipGroupBox = QGroupBox(self.widget)
+        self.hFlipGroupBox = QGroupBox(self.layoutWidget2)
         self.hFlipGroupBox.setObjectName(u"hFlipGroupBox")
         self.hFlipGroupBox.setFlat(True)
         self.hFlitYesRadioButton = QRadioButton(self.hFlipGroupBox)
@@ -444,7 +506,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.verticalLayout_3.addWidget(self.hFlipGroupBox)
 
-        self.linContrastGroupBox = QGroupBox(self.widget)
+        self.linContrastGroupBox = QGroupBox(self.layoutWidget2)
         self.linContrastGroupBox.setObjectName(u"linContrastGroupBox")
         self.linContrastGroupBox.setFlat(True)
         self.linContrastYesRadioButton = QRadioButton(self.linContrastGroupBox)
@@ -461,7 +523,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.verticalLayout_3.addItem(self.verticalSpacer_4)
 
-        self.gBlurGroupBox = QGroupBox(self.widget)
+        self.gBlurGroupBox = QGroupBox(self.layoutWidget2)
         self.gBlurGroupBox.setObjectName(u"gBlurGroupBox")
         self.gBlurGroupBox.setFlat(True)
         self.gBlurYesRadioButton = QRadioButton(self.gBlurGroupBox)
@@ -478,7 +540,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.verticalLayout_3.addItem(self.verticalSpacer_2)
 
-        self.affineTransGroupBox = QGroupBox(self.widget)
+        self.affineTransGroupBox = QGroupBox(self.layoutWidget2)
         self.affineTransGroupBox.setObjectName(u"affineTransGroupBox")
         self.affineTransGroupBox.setFlat(True)
         self.affineTransYesRadioButton = QRadioButton(self.affineTransGroupBox)
@@ -495,7 +557,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
-        self.jitterGroupBox = QGroupBox(self.widget)
+        self.jitterGroupBox = QGroupBox(self.layoutWidget2)
         self.jitterGroupBox.setObjectName(u"jitterGroupBox")
         self.jitterGroupBox.setFlat(True)
         self.jitterYesRadioButton = QRadioButton(self.jitterGroupBox)
@@ -512,9 +574,14 @@ class Ui_TrainingScratchWindow(object):
 
         self.verticalLayout_3.addItem(self.verticalSpacer_3)
 
+        self.linContrastGroupBox.raise_()
+        self.hFlipGroupBox.raise_()
+        self.gBlurGroupBox.raise_()
+        self.affineTransGroupBox.raise_()
+        self.jitterGroupBox.raise_()
         self.TrainingParametersFrame = QFrame(TrainingScratchWindow)
         self.TrainingParametersFrame.setObjectName(u"TrainingParametersFrame")
-        self.TrainingParametersFrame.setGeometry(QRect(460, 200, 361, 511))
+        self.TrainingParametersFrame.setGeometry(QRect(450, 240, 361, 511))
         self.TrainingParametersFrame.setFrameShape(QFrame.Box)
         self.TrainingParametersFrame.setFrameShadow(QFrame.Raised)
         self.optSchedulerGroupBox = QGroupBox(self.TrainingParametersFrame)
@@ -528,32 +595,36 @@ class Ui_TrainingScratchWindow(object):
         self.optSchedulerNoRadioButton.setObjectName(u"optSchedulerNoRadioButton")
         self.optSchedulerNoRadioButton.setGeometry(QRect(10, 50, 89, 20))
         self.optSchedulerNoRadioButton.setChecked(True)
-        self.widget1 = QWidget(self.TrainingParametersFrame)
-        self.widget1.setObjectName(u"widget1")
-        self.widget1.setGeometry(QRect(10, 70, 291, 221))
-        self.verticalLayout_2 = QVBoxLayout(self.widget1)
+        self.layoutWidget3 = QWidget(self.TrainingParametersFrame)
+        self.layoutWidget3.setObjectName(u"layoutWidget3")
+        self.layoutWidget3.setGeometry(QRect(10, 70, 301, 221))
+        self.verticalLayout_2 = QVBoxLayout(self.layoutWidget3)
         self.verticalLayout_2.setSpacing(2)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
-        self.label_31 = QLabel(self.widget1)
+        self.label_31 = QLabel(self.layoutWidget3)
         self.label_31.setObjectName(u"label_31")
 
         self.horizontalLayout_17.addWidget(self.label_31)
 
-        self.batchSizeLineEdit = QLineEdit(self.widget1)
+        self.horizontalSpacer_40 = QSpacerItem(37, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_17.addItem(self.horizontalSpacer_40)
+
+        self.batchSizeLineEdit = QLineEdit(self.layoutWidget3)
         self.batchSizeLineEdit.setObjectName(u"batchSizeLineEdit")
         self.batchSizeLineEdit.setEnabled(True)
         self.batchSizeLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_17.addWidget(self.batchSizeLineEdit)
 
-        self.horizontalSpacer_9 = QSpacerItem(54, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_9 = QSpacerItem(28, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_17.addItem(self.horizontalSpacer_9)
 
-        self.label_32 = QLabel(self.widget1)
+        self.label_32 = QLabel(self.layoutWidget3)
         self.label_32.setObjectName(u"label_32")
 
         self.horizontalLayout_17.addWidget(self.label_32)
@@ -563,23 +634,27 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_18 = QHBoxLayout()
         self.horizontalLayout_18.setObjectName(u"horizontalLayout_18")
-        self.label_34 = QLabel(self.widget1)
+        self.label_34 = QLabel(self.layoutWidget3)
         self.label_34.setObjectName(u"label_34")
 
         self.horizontalLayout_18.addWidget(self.label_34)
 
-        self.epochsLineEdit = QLineEdit(self.widget1)
+        self.horizontalSpacer_39 = QSpacerItem(52, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_18.addItem(self.horizontalSpacer_39)
+
+        self.epochsLineEdit = QLineEdit(self.layoutWidget3)
         self.epochsLineEdit.setObjectName(u"epochsLineEdit")
         self.epochsLineEdit.setEnabled(True)
         self.epochsLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_18.addWidget(self.epochsLineEdit)
 
-        self.horizontalSpacer_10 = QSpacerItem(54, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_10 = QSpacerItem(11, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_18.addItem(self.horizontalSpacer_10)
 
-        self.label_35 = QLabel(self.widget1)
+        self.label_35 = QLabel(self.layoutWidget3)
         self.label_35.setObjectName(u"label_35")
 
         self.horizontalLayout_18.addWidget(self.label_35)
@@ -589,23 +664,27 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_19 = QHBoxLayout()
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
-        self.label_36 = QLabel(self.widget1)
+        self.label_36 = QLabel(self.layoutWidget3)
         self.label_36.setObjectName(u"label_36")
 
         self.horizontalLayout_19.addWidget(self.label_36)
 
-        self.learningRateLineEdit = QLineEdit(self.widget1)
+        self.horizontalSpacer_38 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_19.addItem(self.horizontalSpacer_38)
+
+        self.learningRateLineEdit = QLineEdit(self.layoutWidget3)
         self.learningRateLineEdit.setObjectName(u"learningRateLineEdit")
         self.learningRateLineEdit.setEnabled(True)
         self.learningRateLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_19.addWidget(self.learningRateLineEdit)
 
-        self.horizontalSpacer_11 = QSpacerItem(54, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_11 = QSpacerItem(22, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_19.addItem(self.horizontalSpacer_11)
 
-        self.label_37 = QLabel(self.widget1)
+        self.label_37 = QLabel(self.layoutWidget3)
         self.label_37.setObjectName(u"label_37")
 
         self.horizontalLayout_19.addWidget(self.label_37)
@@ -615,23 +694,27 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_23 = QHBoxLayout()
         self.horizontalLayout_23.setObjectName(u"horizontalLayout_23")
-        self.label_44 = QLabel(self.widget1)
+        self.label_44 = QLabel(self.layoutWidget3)
         self.label_44.setObjectName(u"label_44")
 
         self.horizontalLayout_23.addWidget(self.label_44)
 
-        self.convergenceLineEdit = QLineEdit(self.widget1)
+        self.horizontalSpacer_37 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_23.addItem(self.horizontalSpacer_37)
+
+        self.convergenceLineEdit = QLineEdit(self.layoutWidget3)
         self.convergenceLineEdit.setObjectName(u"convergenceLineEdit")
         self.convergenceLineEdit.setEnabled(True)
         self.convergenceLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_23.addWidget(self.convergenceLineEdit)
 
-        self.horizontalSpacer_15 = QSpacerItem(54, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_15 = QSpacerItem(11, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_23.addItem(self.horizontalSpacer_15)
 
-        self.label_45 = QLabel(self.widget1)
+        self.label_45 = QLabel(self.layoutWidget3)
         self.label_45.setObjectName(u"label_45")
 
         self.horizontalLayout_23.addWidget(self.label_45)
@@ -639,31 +722,35 @@ class Ui_TrainingScratchWindow(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_23)
 
-        self.widget2 = QWidget(self.TrainingParametersFrame)
-        self.widget2.setObjectName(u"widget2")
-        self.widget2.setGeometry(QRect(10, 400, 291, 86))
-        self.verticalLayout_9 = QVBoxLayout(self.widget2)
+        self.layoutWidget4 = QWidget(self.TrainingParametersFrame)
+        self.layoutWidget4.setObjectName(u"layoutWidget4")
+        self.layoutWidget4.setGeometry(QRect(10, 400, 301, 86))
+        self.verticalLayout_9 = QVBoxLayout(self.layoutWidget4)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_20 = QHBoxLayout()
         self.horizontalLayout_20.setObjectName(u"horizontalLayout_20")
-        self.label_38 = QLabel(self.widget2)
+        self.label_38 = QLabel(self.layoutWidget4)
         self.label_38.setObjectName(u"label_38")
 
         self.horizontalLayout_20.addWidget(self.label_38)
 
-        self.schedGammaLineEdit = QLineEdit(self.widget2)
+        self.horizontalSpacer_34 = QSpacerItem(24, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_20.addItem(self.horizontalSpacer_34)
+
+        self.schedGammaLineEdit = QLineEdit(self.layoutWidget4)
         self.schedGammaLineEdit.setObjectName(u"schedGammaLineEdit")
         self.schedGammaLineEdit.setEnabled(False)
         self.schedGammaLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_20.addWidget(self.schedGammaLineEdit)
 
-        self.horizontalSpacer_12 = QSpacerItem(54, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_12 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_20.addItem(self.horizontalSpacer_12)
 
-        self.label_39 = QLabel(self.widget2)
+        self.label_39 = QLabel(self.layoutWidget4)
         self.label_39.setObjectName(u"label_39")
 
         self.horizontalLayout_20.addWidget(self.label_39)
@@ -673,23 +760,27 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_21 = QHBoxLayout()
         self.horizontalLayout_21.setObjectName(u"horizontalLayout_21")
-        self.label_40 = QLabel(self.widget2)
+        self.label_40 = QLabel(self.layoutWidget4)
         self.label_40.setObjectName(u"label_40")
 
         self.horizontalLayout_21.addWidget(self.label_40)
 
-        self.schedPatienceLineEdit = QLineEdit(self.widget2)
+        self.horizontalSpacer_35 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_21.addItem(self.horizontalSpacer_35)
+
+        self.schedPatienceLineEdit = QLineEdit(self.layoutWidget4)
         self.schedPatienceLineEdit.setObjectName(u"schedPatienceLineEdit")
         self.schedPatienceLineEdit.setEnabled(False)
         self.schedPatienceLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_21.addWidget(self.schedPatienceLineEdit)
 
-        self.horizontalSpacer_13 = QSpacerItem(54, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_13 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_21.addItem(self.horizontalSpacer_13)
 
-        self.label_41 = QLabel(self.widget2)
+        self.label_41 = QLabel(self.layoutWidget4)
         self.label_41.setObjectName(u"label_41")
 
         self.horizontalLayout_21.addWidget(self.label_41)
@@ -699,23 +790,27 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_22 = QHBoxLayout()
         self.horizontalLayout_22.setObjectName(u"horizontalLayout_22")
-        self.label_42 = QLabel(self.widget2)
+        self.label_42 = QLabel(self.layoutWidget4)
         self.label_42.setObjectName(u"label_42")
 
         self.horizontalLayout_22.addWidget(self.label_42)
 
-        self.schedThresholdLineEdit = QLineEdit(self.widget2)
+        self.horizontalSpacer_36 = QSpacerItem(15, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_22.addItem(self.horizontalSpacer_36)
+
+        self.schedThresholdLineEdit = QLineEdit(self.layoutWidget4)
         self.schedThresholdLineEdit.setObjectName(u"schedThresholdLineEdit")
         self.schedThresholdLineEdit.setEnabled(False)
         self.schedThresholdLineEdit.setClearButtonEnabled(False)
 
         self.horizontalLayout_22.addWidget(self.schedThresholdLineEdit)
 
-        self.horizontalSpacer_14 = QSpacerItem(54, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer_14 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
 
         self.horizontalLayout_22.addItem(self.horizontalSpacer_14)
 
-        self.label_43 = QLabel(self.widget2)
+        self.label_43 = QLabel(self.layoutWidget4)
         self.label_43.setObjectName(u"label_43")
 
         self.horizontalLayout_22.addWidget(self.label_43)
@@ -723,20 +818,20 @@ class Ui_TrainingScratchWindow(object):
 
         self.verticalLayout_9.addLayout(self.horizontalLayout_22)
 
-        self.widget3 = QWidget(self.TrainingParametersFrame)
-        self.widget3.setObjectName(u"widget3")
-        self.widget3.setGeometry(QRect(10, 10, 152, 48))
-        self.verticalLayout_6 = QVBoxLayout(self.widget3)
+        self.layoutWidget5 = QWidget(self.TrainingParametersFrame)
+        self.layoutWidget5.setObjectName(u"layoutWidget5")
+        self.layoutWidget5.setGeometry(QRect(10, 10, 152, 64))
+        self.verticalLayout_6 = QVBoxLayout(self.layoutWidget5)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.loadDataButton = QPushButton(self.widget3)
+        self.loadDataButton = QPushButton(self.layoutWidget5)
         self.loadDataButton.setObjectName(u"loadDataButton")
 
         self.verticalLayout_6.addWidget(self.loadDataButton)
 
-        self.dataPathLabel = QLabel(self.widget3)
+        self.dataPathLabel = QLabel(self.layoutWidget5)
         self.dataPathLabel.setObjectName(u"dataPathLabel")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(8)
         sizePolicy.setVerticalStretch(8)
         sizePolicy.setHeightForWidth(self.dataPathLabel.sizePolicy().hasHeightForWidth())
@@ -747,21 +842,21 @@ class Ui_TrainingScratchWindow(object):
 
         self.label_12 = QLabel(TrainingScratchWindow)
         self.label_12.setObjectName(u"label_12")
-        self.label_12.setGeometry(QRect(30, 170, 241, 31))
+        self.label_12.setGeometry(QRect(20, 210, 241, 31))
         font = QFont()
         font.setPointSize(12)
         self.label_12.setFont(font)
         self.label_13 = QLabel(TrainingScratchWindow)
         self.label_13.setObjectName(u"label_13")
-        self.label_13.setGeometry(QRect(470, 170, 171, 31))
+        self.label_13.setGeometry(QRect(460, 210, 171, 31))
         self.label_13.setFont(font)
-        self.layoutWidget2 = QWidget(TrainingScratchWindow)
-        self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(150, 730, 541, 26))
-        self.horizontalLayout_3 = QHBoxLayout(self.layoutWidget2)
+        self.layoutWidget6 = QWidget(TrainingScratchWindow)
+        self.layoutWidget6.setObjectName(u"layoutWidget6")
+        self.layoutWidget6.setGeometry(QRect(70, 770, 710, 26))
+        self.horizontalLayout_3 = QHBoxLayout(self.layoutWidget6)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.cancelButton = QPushButton(self.layoutWidget2)
+        self.cancelButton = QPushButton(self.layoutWidget6)
         self.cancelButton.setObjectName(u"cancelButton")
 
         self.horizontalLayout_3.addWidget(self.cancelButton)
@@ -770,25 +865,34 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
 
-        self.confirmButton = QPushButton(self.layoutWidget2)
-        self.confirmButton.setObjectName(u"confirmButton")
+        self.yamlFileButton = QPushButton(self.layoutWidget6)
+        self.yamlFileButton.setObjectName(u"yamlFileButton")
 
-        self.horizontalLayout_3.addWidget(self.confirmButton)
+        self.horizontalLayout_3.addWidget(self.yamlFileButton)
 
-        self.layoutWidget3 = QWidget(TrainingScratchWindow)
-        self.layoutWidget3.setObjectName(u"layoutWidget3")
-        self.layoutWidget3.setGeometry(QRect(120, 100, 301, 24))
-        self.horizontalLayout_4 = QHBoxLayout(self.layoutWidget3)
+        self.horizontalSpacer_4 = QSpacerItem(23, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+
+        self.horizontalLayout_3.addItem(self.horizontalSpacer_4)
+
+        self.trainButton = QPushButton(self.layoutWidget6)
+        self.trainButton.setObjectName(u"trainButton")
+
+        self.horizontalLayout_3.addWidget(self.trainButton)
+
+        self.layoutWidget7 = QWidget(TrainingScratchWindow)
+        self.layoutWidget7.setObjectName(u"layoutWidget7")
+        self.layoutWidget7.setGeometry(QRect(110, 160, 251, 24))
+        self.horizontalLayout_4 = QHBoxLayout(self.layoutWidget7)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.horizontalLayout_4.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.ftLayerLabel = QLabel(self.layoutWidget3)
+        self.ftLayerLabel = QLabel(self.layoutWidget7)
         self.ftLayerLabel.setObjectName(u"ftLayerLabel")
         self.ftLayerLabel.setEnabled(True)
 
         self.horizontalLayout_4.addWidget(self.ftLayerLabel)
 
-        self.ftLayerComboBox = QComboBox(self.layoutWidget3)
+        self.ftLayerComboBox = QComboBox(self.layoutWidget7)
         self.ftLayerComboBox.setObjectName(u"ftLayerComboBox")
         self.ftLayerComboBox.setEnabled(False)
 
@@ -796,7 +900,7 @@ class Ui_TrainingScratchWindow(object):
 
         self.layoutWidget_13 = QWidget(TrainingScratchWindow)
         self.layoutWidget_13.setObjectName(u"layoutWidget_13")
-        self.layoutWidget_13.setGeometry(QRect(20, 30, 301, 24))
+        self.layoutWidget_13.setGeometry(QRect(230, 80, 301, 24))
         self.horizontalLayout_8 = QHBoxLayout(self.layoutWidget_13)
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
         self.horizontalLayout_8.setSizeConstraint(QLayout.SetDefaultConstraint)
@@ -813,8 +917,82 @@ class Ui_TrainingScratchWindow(object):
 
         self.horizontalLayout_8.addWidget(self.networkTypeComboBox)
 
-        self.layoutWidget.raise_()
-        self.layoutWidget.raise_()
+        self.customModelGroupBox = QGroupBox(TrainingScratchWindow)
+        self.customModelGroupBox.setObjectName(u"customModelGroupBox")
+        self.customModelGroupBox.setGeometry(QRect(20, 40, 231, 80))
+        self.customModelGroupBox.setContextMenuPolicy(Qt.PreventContextMenu)
+        self.customModelGroupBox.setLayoutDirection(Qt.LeftToRight)
+        self.customModelGroupBox.setFlat(True)
+        self.customModelGroupBox.setCheckable(False)
+        self.customModelYesRadioButton = QRadioButton(self.customModelGroupBox)
+        self.customModelYesRadioButton.setObjectName(u"customModelYesRadioButton")
+        self.customModelYesRadioButton.setEnabled(True)
+        self.customModelYesRadioButton.setGeometry(QRect(20, 30, 89, 20))
+        self.customModelYesRadioButton.setLayoutDirection(Qt.LeftToRight)
+        self.customModelNoRadioButton = QRadioButton(self.customModelGroupBox)
+        self.customModelNoRadioButton.setObjectName(u"customModelNoRadioButton")
+        self.customModelNoRadioButton.setGeometry(QRect(20, 50, 89, 20))
+        self.customModelNoRadioButton.setChecked(True)
+        self.layoutWidget_2 = QWidget(TrainingScratchWindow)
+        self.layoutWidget_2.setObjectName(u"layoutWidget_2")
+        self.layoutWidget_2.setGeometry(QRect(560, 80, 251, 24))
+        self.horizontalLayout_9 = QHBoxLayout(self.layoutWidget_2)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
+        self.label_6 = QLabel(self.layoutWidget_2)
+        self.label_6.setObjectName(u"label_6")
+
+        self.horizontalLayout_9.addWidget(self.label_6)
+
+        self.customLayersLineEdit = QLineEdit(self.layoutWidget_2)
+        self.customLayersLineEdit.setObjectName(u"customLayersLineEdit")
+        self.customLayersLineEdit.setEnabled(False)
+        self.customLayersLineEdit.setClearButtonEnabled(False)
+
+        self.horizontalLayout_9.addWidget(self.customLayersLineEdit)
+
+        self.label_7 = QLabel(self.layoutWidget_2)
+        self.label_7.setObjectName(u"label_7")
+
+        self.horizontalLayout_9.addWidget(self.label_7)
+
+        self.layoutWidget_5 = QWidget(TrainingScratchWindow)
+        self.layoutWidget_5.setObjectName(u"layoutWidget_5")
+        self.layoutWidget_5.setGeometry(QRect(520, 160, 261, 24))
+        self.horizontalLayout_27 = QHBoxLayout(self.layoutWidget_5)
+        self.horizontalLayout_27.setObjectName(u"horizontalLayout_27")
+        self.horizontalLayout_27.setSizeConstraint(QLayout.SetDefaultConstraint)
+        self.horizontalLayout_27.setContentsMargins(0, 0, 0, 0)
+        self.ftLayerLabel_3 = QLabel(self.layoutWidget_5)
+        self.ftLayerLabel_3.setObjectName(u"ftLayerLabel_3")
+        self.ftLayerLabel_3.setEnabled(True)
+
+        self.horizontalLayout_27.addWidget(self.ftLayerLabel_3)
+
+        self.pretrainingComboBox = QComboBox(self.layoutWidget_5)
+        self.pretrainingComboBox.setObjectName(u"pretrainingComboBox")
+        self.pretrainingComboBox.setEnabled(False)
+
+        self.horizontalLayout_27.addWidget(self.pretrainingComboBox)
+
+        self.pretrainingGroupBox = QGroupBox(TrainingScratchWindow)
+        self.pretrainingGroupBox.setObjectName(u"pretrainingGroupBox")
+        self.pretrainingGroupBox.setGeometry(QRect(430, 130, 91, 80))
+        self.pretrainingGroupBox.setContextMenuPolicy(Qt.PreventContextMenu)
+        self.pretrainingGroupBox.setLayoutDirection(Qt.LeftToRight)
+        self.pretrainingGroupBox.setFlat(True)
+        self.pretrainingGroupBox.setCheckable(False)
+        self.pretrainingYesRadioButton = QRadioButton(self.pretrainingGroupBox)
+        self.pretrainingYesRadioButton.setObjectName(u"pretrainingYesRadioButton")
+        self.pretrainingYesRadioButton.setEnabled(True)
+        self.pretrainingYesRadioButton.setGeometry(QRect(20, 30, 89, 20))
+        self.pretrainingYesRadioButton.setLayoutDirection(Qt.LeftToRight)
+        self.pretrainingNoRadioButton = QRadioButton(self.pretrainingGroupBox)
+        self.pretrainingNoRadioButton.setObjectName(u"pretrainingNoRadioButton")
+        self.pretrainingNoRadioButton.setGeometry(QRect(20, 50, 89, 20))
+        self.pretrainingNoRadioButton.setChecked(True)
+        self.layoutWidget7.raise_()
+        self.layoutWidget7.raise_()
         self.finetuningGroupBox.raise_()
         self.TrainingParametersFrame.raise_()
         self.label_12.raise_()
@@ -822,6 +1000,10 @@ class Ui_TrainingScratchWindow(object):
         self.DataAugmentationFrame.raise_()
         self.dataLabel.raise_()
         self.layoutWidget_13.raise_()
+        self.customModelGroupBox.raise_()
+        self.layoutWidget_2.raise_()
+        self.layoutWidget_5.raise_()
+        self.pretrainingGroupBox.raise_()
 
         self.retranslateUi(TrainingScratchWindow)
 
@@ -834,40 +1016,40 @@ class Ui_TrainingScratchWindow(object):
         self.finetuningGroupBox.setTitle(QCoreApplication.translate("TrainingScratchWindow", u"FineTuning :", None))
         self.ftYesRadioButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"Yes", None))
         self.ftNoRadioButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"No", None))
-        self.label_17.setText(QCoreApplication.translate("TrainingScratchWindow", u"Min ", None))
+        self.label_17.setText(QCoreApplication.translate("TrainingScratchWindow", u"Min  :", None))
         self.linContrastMinLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"0", None))
         self.label_18.setText(QCoreApplication.translate("TrainingScratchWindow", u">= 0", None))
-        self.label_19.setText(QCoreApplication.translate("TrainingScratchWindow", u"Max", None))
+        self.label_19.setText(QCoreApplication.translate("TrainingScratchWindow", u"Max :", None))
         self.linContrastMaxLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"1.2", None))
         self.label_20.setText(QCoreApplication.translate("TrainingScratchWindow", u"<= 1.2", None))
-        self.label_21.setText(QCoreApplication.translate("TrainingScratchWindow", u"Probability", None))
+        self.label_21.setText(QCoreApplication.translate("TrainingScratchWindow", u"Probability :", None))
         self.affineTransProbaLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"0.8", None))
         self.label_22.setText(QCoreApplication.translate("TrainingScratchWindow", u"[0:1]", None))
-        self.label_25.setText(QCoreApplication.translate("TrainingScratchWindow", u"Min", None))
+        self.label_25.setText(QCoreApplication.translate("TrainingScratchWindow", u"Min :", None))
         self.affineTransMinLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"0.8", None))
         self.label_26.setText(QCoreApplication.translate("TrainingScratchWindow", u">= 0.5", None))
-        self.label_23.setText(QCoreApplication.translate("TrainingScratchWindow", u"Max", None))
+        self.label_23.setText(QCoreApplication.translate("TrainingScratchWindow", u"Max :", None))
         self.affineTransMaxLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"1.2", None))
         self.label_24.setText(QCoreApplication.translate("TrainingScratchWindow", u"<= 1.3", None))
-        self.label_50.setText(QCoreApplication.translate("TrainingScratchWindow", u"Rotation angle", None))
+        self.label_50.setText(QCoreApplication.translate("TrainingScratchWindow", u"Rotation angle :", None))
         self.affineTransAngleRotLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"0", None))
         self.label_51.setText(QCoreApplication.translate("TrainingScratchWindow", u"[0:359]", None))
-        self.label_46.setText(QCoreApplication.translate("TrainingScratchWindow", u"Hue", None))
+        self.label_46.setText(QCoreApplication.translate("TrainingScratchWindow", u"Hue :", None))
         self.jitterHueLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"0", None))
         self.label_47.setText(QCoreApplication.translate("TrainingScratchWindow", u"[0:0.5]", None))
-        self.label_27.setText(QCoreApplication.translate("TrainingScratchWindow", u"Min ", None))
+        self.label_27.setText(QCoreApplication.translate("TrainingScratchWindow", u"Min  :", None))
         self.jitterMinLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"0.8", None))
         self.label_28.setText(QCoreApplication.translate("TrainingScratchWindow", u">= 0", None))
-        self.label_29.setText(QCoreApplication.translate("TrainingScratchWindow", u"Max", None))
+        self.label_29.setText(QCoreApplication.translate("TrainingScratchWindow", u"Max :", None))
         self.jitterMaxLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"1.2", None))
         self.label_30.setText(QCoreApplication.translate("TrainingScratchWindow", u"<= 1.2", None))
         self.label.setText(QCoreApplication.translate("TrainingScratchWindow", u"Probability :", None))
         self.hFlipLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"0.5", None))
         self.label_3.setText(QCoreApplication.translate("TrainingScratchWindow", u"[0:1]", None))
-        self.label_2.setText(QCoreApplication.translate("TrainingScratchWindow", u"Sigma min", None))
+        self.label_2.setText(QCoreApplication.translate("TrainingScratchWindow", u"Sigma min :", None))
         self.gBlurSigMinLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"0.1", None))
         self.label_4.setText(QCoreApplication.translate("TrainingScratchWindow", u">= 0.1", None))
-        self.label_14.setText(QCoreApplication.translate("TrainingScratchWindow", u"Sigma max", None))
+        self.label_14.setText(QCoreApplication.translate("TrainingScratchWindow", u"Sigma max :", None))
         self.gBlurSigMaxLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"1", None))
         self.label_5.setText(QCoreApplication.translate("TrainingScratchWindow", u"<= 1", None))
         self.label_48.setText(QCoreApplication.translate("TrainingScratchWindow", u"Kernel size ", None))
@@ -917,7 +1099,19 @@ class Ui_TrainingScratchWindow(object):
         self.label_12.setText(QCoreApplication.translate("TrainingScratchWindow", u"Data augmentation Parameters", None))
         self.label_13.setText(QCoreApplication.translate("TrainingScratchWindow", u"Training Parameters", None))
         self.cancelButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"Cancel", None))
-        self.confirmButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"Confirm", None))
+        self.yamlFileButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"Create and save the parameter file", None))
+        self.trainButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"Train the network", None))
         self.ftLayerLabel.setText(QCoreApplication.translate("TrainingScratchWindow", u"From layer :", None))
-        self.ftLayerLabel_2.setText(QCoreApplication.translate("TrainingScratchWindow", u"Choose the network type :", None))
+        self.ftLayerLabel_2.setText(QCoreApplication.translate("TrainingScratchWindow", u"Choose the model :", None))
+        self.customModelGroupBox.setTitle(QCoreApplication.translate("TrainingScratchWindow", u"Do you want to create a custom model?", None))
+        self.customModelYesRadioButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"Yes", None))
+        self.customModelNoRadioButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"No", None))
+        self.label_6.setText(QCoreApplication.translate("TrainingScratchWindow", u"Custom layers :", None))
+        self.customLayersLineEdit.setText(QCoreApplication.translate("TrainingScratchWindow", u"[3, 3, 3]", None))
+        self.label_7.setText(QCoreApplication.translate("TrainingScratchWindow", u"(as a list [a, b, c])", None))
+        self.ftLayerLabel_3.setText(QCoreApplication.translate("TrainingScratchWindow", u"On the dataset :", None))
+        self.pretrainingGroupBox.setTitle(QCoreApplication.translate("TrainingScratchWindow", u"Pretraining:", None))
+        self.pretrainingYesRadioButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"Yes", None))
+        self.pretrainingNoRadioButton.setText(QCoreApplication.translate("TrainingScratchWindow", u"No", None))
     # retranslateUi
+

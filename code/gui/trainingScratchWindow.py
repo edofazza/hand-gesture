@@ -10,8 +10,9 @@ from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-from code.training.models import get_model_layers
-from code.utils.configuration import create_configuration_file
+from models import get_model_layers
+from configuration import create_configuration_file, load_configuration_file
+from train_model import test_model, train_model
 
 
 class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
@@ -22,15 +23,23 @@ class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
         
         self.loadDataButton.clicked.connect(self.loadData)
         self.cancelButton.clicked.connect(self.quit)
-        self.confirmButton.clicked.connect(self.confirm)
+        self.yamlFileButton.clicked.connect(self.createYamlFile)
+        self.trainButton.clicked.connect(self.trainNetwork)
 
         self.networkTypeComboBox.addItems(["resnet18", "resnet50", "resnet101", "densenet121",
                                             "vgg16", "inception_v3", "efficientnet_b0"])
         self.ftLayerComboBox.addItems(get_model_layers(self.networkTypeComboBox.itemText(0)))
         self.networkTypeComboBox.currentTextChanged.connect(self.layersList)
-        
+        self.pretrainingComboBox.addItems(["ImageNet", "CIFAR", "My pretrained model"])
+
+        self.customModelYesRadioButton.toggled.connect(self.customModel)
+        self.customModelNoRadioButton.toggled.connect(self.customModel)
+
         self.ftYesRadioButton.toggled.connect(self.fineTuning)
         self.ftNoRadioButton.toggled.connect(self.fineTuning)
+
+        self.pretrainingYesRadioButton.toggled.connect(self.pretraining)
+        self.pretrainingNoRadioButton.toggled.connect(self.pretraining   )
 
         self.hFlitYesRadioButton.toggled.connect(self.horizontalFlip)
         self.hFlitNoRadioButton.toggled.connect(self.horizontalFlip)
@@ -59,17 +68,40 @@ class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
         if dataFile:
             self.dataPathLabel.setText(dataFile[0])
 
+    def customModel(self):
+        if self.customModelYesRadioButton.isChecked():
+            self.customLayersLineEdit.setEnabled(True)
+            self.networkTypeComboBox.clear()
+            self.networkTypeComboBox.addItems(["custom_resnet", "custom_densenet", "custom_senet"])
+            self.ftNoRadioButton.setChecked(True)
+            self.finetuningGroupBox.setDisabled(True)
+        else:
+            self.customLayersLineEdit.setDisabled(True)
+            self.networkTypeComboBox.clear()
+            self.networkTypeComboBox.addItems(["resnet18", "resnet50", "resnet101", "densenet121",
+                                            "vgg16", "inception_v3", "efficientnet_b0"])
+            self.finetuningGroupBox.setEnabled(True)
+
     def fineTuning(self):
         if self.ftYesRadioButton.isChecked():
             self.ftLayerComboBox.setEnabled(True)
         else:
             self.ftLayerComboBox.setDisabled(True)
 
+    def pretraining(self):
+        if self.pretrainingYesRadioButton.isChecked():
+            self.pretrainingComboBox.setEnabled(True)
+        else:
+            self.pretrainingComboBox.setDisabled(True)
+
     def layersList(self):
-        self.ftLayerComboBox.clear()
-        model = self.networkTypeComboBox.currentText()
-        layers = get_model_layers(model)
-        self.ftLayerComboBox.addItems(layers)
+        if not self.customModelYesRadioButton.isChecked():
+            if not self.networkTypeComboBox.count() == 0:
+                self.ftLayerComboBox.clear()
+                self.ftLayerComboBox.addItem('scratch')
+                model = self.networkTypeComboBox.currentText()
+                layers = get_model_layers(model)
+                self.ftLayerComboBox.addItems(layers)
 
     def horizontalFlip(self):
         if self.hFlitYesRadioButton.isChecked():
@@ -131,63 +163,129 @@ class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
     def quit(self):
         self.close()
 
-    def confirm(self):
-        gui_model_name = self.networkTypeComboBox.currentText()
-        gui_finetune_layer = self.ftLayerComboBox.currentText()
+    def createYamlFile(self):
+        if self.customModelNoRadioButton.isChecked():
+            if self.networkTypeComboBox.currentText().startswith('resnet'):
+                name = 'resnet'
+                n = len(name)
+                number = self.networkTypeComboBox.currentText()[n:]
+            if self.networkTypeComboBox.currentText().startswith('densenet'):
+                name = 'densenet'
+                n = len(name)
+                number = self.networkTypeComboBox.currentText()[n:]
+            if self.networkTypeComboBox.currentText().startswith('vgg'):
+                name = 'vgg'
+                n = len(name)
+                number = self.networkTypeComboBox.currentText()[n:]
+            if self.networkTypeComboBox.currentText().startswith('inception'):
+                name = 'inception'
+                number = self.networkTypeComboBox.currentText()[5:]
+            if self.networkTypeComboBox.currentText().startswith('efficientnet'):
+                name = 'efficientnet'
+                number = self.networkTypeComboBox.currentText()[5:]
+
+            if self.ftYesRadioButton.isChecked():
+                gui_finetune_layer = self.ftLayerComboBox.currentText()
+                if number.startswith('_'):
+                    gui_model_name = name + '_' + gui_finetune_layer + number
+                else:
+                    gui_model_name = name + '-' + gui_finetune_layer + '-' + number
+            else:
+                gui_finetune_layer = 'scratch'
+                if number.startswith('_'):
+                    gui_model_name = name + '_scratch' + number
+                else:
+                    gui_model_name = name + '-scratch' + '-' + number
+
+        else:
+            gui_model_name = self.networkTypeComboBox.currentText()
+            gui_finetune_layer = 'scratch'
+        
         
         # TRAINING PARAMETERS
-        gui_batch_size = self.batchSizeLineEdit.text()
-        gui_epochs = self.epochsLineEdit.text()
-        gui_learning_rate = self.learningRateLineEdit.text()
+        gui_batch_size =  int(self.batchSizeLineEdit.text())
+        gui_epochs = int(self.epochsLineEdit.text())
+        gui_learning_rate = float(self.learningRateLineEdit.text())
 
         if self.optSchedulerYesRadioButton.isChecked():
             gui_optimizer_scheduler = True
         else:
             gui_optimizer_scheduler = False
-        gui_scheduler_gamma = self.schedGammaLineEdit.text()
-        gui_scheduler_patience = self.schedPatienceLineEdit.text()
-        gui_scheduler_threshold = self.schedThresholdLineEdit.text()
-        gui_convergence = self.convergenceLineEdit.text()
+        gui_scheduler_gamma = float(self.schedGammaLineEdit.text())
+        gui_scheduler_patience = float(self.schedPatienceLineEdit.text())
+        gui_scheduler_threshold = float(self.schedThresholdLineEdit.text())
+        gui_convergence = int(self.convergenceLineEdit.text())
 
         # DATA AUGMENTATION PARAMETERS
         if self.hFlitYesRadioButton.isChecked():
             gui_fliplr = True
         else:
             gui_fliplr = False
-        gui_fliplr_value = self.hFlipLineEdit.text()
+        gui_fliplr_value = float(self.hFlipLineEdit.text())
 
         if self.gBlurYesRadioButton.isChecked():
             gui_gaussian_blur = True
         else:
             gui_gaussian_blur = False
-        gui_gaussian_kernel = self.gBlurKernelLineEdit.text()
-        gui_sigma_min = self.gBlurSigMinLineEdit.text()
-        gui_sigma_max = self.gBlurSigMaxLineEdit.text()
+        gui_gaussian_kernel = float(self.gBlurKernelLineEdit.text())
+        gui_sigma_min = float(self.gBlurSigMinLineEdit.text())
+        gui_sigma_max = float(self.gBlurSigMaxLineEdit.text())
 
         if self.affineTransYesRadioButton.isChecked():
             gui_affine = True
         else:
             gui_affine = False
-        gui_affine_percent = self.affineTransProbaLineEdit.text()
-        gui_affine_scale_min = self.affineTransMinLineEdit.text()
-        gui_affine_scale_max = self.affineTransMaxLineEdit.text()
+        gui_affine_percent = float(self.affineTransProbaLineEdit.text())
+        gui_affine_scale_min = float(self.affineTransMinLineEdit.text())
+        gui_affine_scale_max = float(self.affineTransMaxLineEdit.text())
 
         if self.jitterYesRadioButton.isChecked():
             gui_jitter = True
         else:
             gui_jitter = False
-        gui_jitter_min = self.jitterMinLineEdit.text()
-        gui_jitter_max = self.jitterMaxLineEdit.text()
-        gui_jitter_hue = self.jitterHueLineEdit.text()
+        gui_jitter_min = float(self.jitterMinLineEdit.text())
+        gui_jitter_max = float(self.jitterMaxLineEdit.text())
+        gui_jitter_hue = float(self.jitterHueLineEdit.text())
+
+        if self.pretrainingYesRadioButton.isChecked():
+            if self.pretrainingComboBox.currentText() == "ImageNet":
+                gui_pretrained_weights = True
+                gui_pretrained_CIFAR = False
+                gui_pretrained_model = False
+            elif self.pretrainingComboBox.currentText() == "CIFAR":
+                gui_pretrained_weights = False
+                gui_pretrained_CIFAR = True
+                gui_pretrained_model = False
+            elif self.pretrainingComboBox.currentText() == "My pretrained model":
+                gui_pretrained_weights = False
+                gui_pretrained_CIFAR = False
+                gui_pretrained_model = True
+        else:
+            gui_pretrained_weights = False
+            gui_pretrained_CIFAR = False
+            gui_pretrained_model = False
+
+        gui_layers = self.customLayersLineEdit.text()
+
+        if self.customModelYesRadioButton.isChecked():
+            x = gui_layers[1]
+            print(gui_layers)
+            print(x)
+            y = gui_layers[4]
+            z = gui_layers[7]
+            layer = '_' + x + '_' + y +'_' + z
+            gui_model_name = gui_model_name + layer
+            if self.pretrainingComboBox.currentText() == 'CIFAR':
+                gui_model_name = gui_model_name + '_CIFAR'
 
 
         create_configuration_file(
         model_name = gui_model_name,
-        pretrained_weights=False,
-        finetune_layer='fc',
-        pretrain_CIFAR=False,
-        pretrained_model=False,     # get trained weights
-        layers=[3, 3, 3],
+        pretrained_weights = gui_pretrained_weights,
+        finetune_layer = gui_finetune_layer,
+        pretrain_CIFAR = gui_pretrained_CIFAR,
+        pretrained_model = gui_pretrained_model,     # get trained weights
+        layers = gui_layers,
         growth_rate=32,
         # TRAINING PARAMETERS
         batch_size = gui_batch_size,
@@ -216,4 +314,12 @@ class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
         jitter_hue=gui_jitter_hue,
         # GENERAL
         seed=42,
-)
+        )
+        
+
+
+    def trainNetwork(self):
+        cfg = load_configuration_file('config.yaml')
+        cfg['pretrained_model'] = False
+        train_model(cfg)
+        test_model(cfg)

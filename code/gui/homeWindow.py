@@ -14,7 +14,6 @@ class homeWindow(QWidget, Ui_HomeWindow):
 
         self.trainButton.clicked.connect(self.training)
         self.perfButton.clicked.connect(self.perfReading)
-        self.liveTestButton.clicked.connect(self.liveTest)
         self.exitButton.clicked.connect(self.exit)
 
     def training(self, home_w):
@@ -24,11 +23,6 @@ class homeWindow(QWidget, Ui_HomeWindow):
 
     def perfReading(self):
         self.window = perfWindow()
-        self.window.show()
-        self.hide()
-    
-    def liveTest(self):
-        self.window = liveTestWindow()
         self.window.show()
         self.hide()
     
