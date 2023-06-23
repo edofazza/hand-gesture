@@ -62,7 +62,7 @@ class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
         
     def loadData(self):
         #open the file dialog
-        dataFile = QFileDialog.getOpenFileName(self,"Open File","C:/Users/Workstation-1/OneDrive - Scuola Superiore Sant'Anna/DL project/Qt GUI")
+        dataFile = QFileDialog.getExistingDirectory(self,"Open File","C:/Users/Workstation-1/OneDrive - Scuola Superiore Sant'Anna/DL project/Qt GUI")
         
         #update the label with file directory
         if dataFile:
@@ -98,7 +98,6 @@ class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
         if not self.customModelYesRadioButton.isChecked():
             if not self.networkTypeComboBox.count() == 0:
                 self.ftLayerComboBox.clear()
-                self.ftLayerComboBox.addItem('scratch')
                 model = self.networkTypeComboBox.currentText()
                 layers = get_model_layers(model)
                 self.ftLayerComboBox.addItems(layers)
@@ -290,7 +289,7 @@ class trainingScratchWindow(QWidget, Ui_TrainingScratchWindow):
         # TRAINING PARAMETERS
         batch_size = gui_batch_size,
         epochs = gui_epochs,
-        dataset_path='hand_gestures',
+        dataset_path= self.dataPathLabel.text(),
         learning_rate = gui_learning_rate,
         optimizer_scheduler = gui_optimizer_scheduler,
         scheduler_gamma = gui_scheduler_gamma,
