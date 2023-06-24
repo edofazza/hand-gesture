@@ -327,4 +327,4 @@ def test_model(cfg):
     plt.figure(figsize=(10, 10))
     sn.heatmap(df_cm, annot=True)
     plt.savefig(os.path.join('models', model_name, 'performance', 'confusion_matrix.png'))
-    folder_to_zip(os.path.join('models', model_name, 'performance'))
+    #folder_to_zip(os.path.join('models', model_name, 'performance'))

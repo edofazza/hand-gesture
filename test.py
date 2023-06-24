@@ -72,13 +72,13 @@ if __name__ == '__main__':
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='efficient_scratch_b0', pretrained_weights=False)
+    create_configuration_file(model_name='efficietnet_scratch_b0', pretrained_weights=False)
     cfg = load_configuration_file('config.yaml')
     cfg['pretrained_weights'] = False
     cfg['pretrained_model'] = True
     test_model(cfg)
 
-    create_configuration_file(model_name='efficient_classifier_b0', pretrained_weights=False)
+    create_configuration_file(model_name='efficietnet_classifier_b0', pretrained_weights=False)
     cfg = load_configuration_file('config.yaml')
     cfg['pretrained_weights'] = False
     cfg['pretrained_model'] = True
