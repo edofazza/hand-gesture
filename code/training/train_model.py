@@ -5,11 +5,12 @@ from torch.utils import data
 from torchvision import transforms
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch import nn
-from sklearn.metrics import f1_score, confusion_matrix
+from sklearn.metrics import f1_score, confusion_matrix, precision_score, recall_score
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sn
 import pandas as pd
+from decimal import Decimal
 
 from code.training.models import get_model
 from code.training.auxiliary import create_sets, create_dataloader, get_device
@@ -264,6 +265,39 @@ def train_model(cfg):
     np.save(os.path.join('models', model_name, 'performance', 'val_f1_scores.npy'), val_f1_scores)
 
 
+def test2(test_loader, model, criterion, device):
+    model.eval()
+    test_loss = 0.0
+    true_labels = []
+    predicted_labels = []
+    total = 0
+
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images, labels = images.to(device), labels.to(device)
+
+            outputs = model(images)
+            loss = criterion(outputs, labels)
+
+            test_loss += loss.item() * images.size(0)
+            _, preds = torch.max(outputs.data, 1)
+            true_labels.extend(labels.cpu().numpy())
+            predicted_labels.extend(preds.cpu().numpy())
+            total += labels.size(0)
+
+    test_loss /= len(test_loader.dataset)
+    test_acc = Decimal(sum([1 for i, j in zip(true_labels, predicted_labels) if i == j])) / Decimal(total)
+    miss_classified = sum([1 for i, j in zip(true_labels, predicted_labels) if i != j])
+    test_f1 = f1_score(true_labels, predicted_labels, average='macro')
+    test_precision = precision_score(true_labels, predicted_labels, average='macro')
+    test_recall = recall_score(true_labels, predicted_labels, average='macro')
+    conf_matrix = confusion_matrix(true_labels, predicted_labels)
+
+    print('Test loss: {:.3f}, Test accuracy: {:.3f}, Test Macro F1-score: {:.3f}'.format(test_loss, test_acc, test_f1))
+
+    return test_loss, test_acc, test_f1, conf_matrix, miss_classified, test_precision, test_recall
+
+
 def test_model(cfg):
     model_name = cfg['model_name']
     num_classes = len(os.listdir(os.path.join('sets', 'training')))
@@ -283,9 +317,10 @@ def test_model(cfg):
     test_loader = create_dataloader(os.path.join('sets', 'test'), transform, cfg['batch_size'])
     criterion = nn.CrossEntropyLoss()
 
-    test_loss, test_acc, test_f1, conf_matrix = test(test_loader, model, criterion, device)
+    test_loss, test_acc, test_f1, conf_matrix, miss_classified, test_precision, test_recall = test2(test_loader, model, criterion, device)
     with open(os.path.join('models', model_name, 'performance', 'test_results.txt'), 'w') as f:
-        f.write('Test loss: {:.3f}, Test accuracy: {:.3f}, Test Macro F1-score: {:.3f}'.format(test_loss, test_acc, test_f1))
+        f.write('Test loss: {:.3f}, Test accuracy: {:.3f}, Test Macro F1-score: {:.3f}, Precision {:.3f}, Recall {:.3f}, Badly classified: {}'
+                .format(test_loss, test_acc, test_f1, test_precision, test_recall, miss_classified))
 
     df_cm = pd.DataFrame(conf_matrix, index=[i for i in os.listdir(os.path.join('sets', 'training'))],
                          columns=[i for i in os.listdir(os.path.join('sets', 'training'))])

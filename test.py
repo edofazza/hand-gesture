@@ -53,3 +53,81 @@ if __name__ == '__main__':
     cfg['pretrained_weights'] = False
     cfg['pretrained_model'] = True
     test_model(cfg)
+
+    create_configuration_file(model_name='densenet-classifier-121', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='densenet-scratch-121', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='densenet-classifier-121', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='efficient_scratch_b0', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='efficient_classifier_b0', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='inception_scratch_v3', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='inception_fc_v3', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='custom_densenet_3_3_3', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='custom_densenet_3_3_3_cifar', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='custom_resnet_3_3_3', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='custom_resnet_3_3_3_cifar', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='custom_senet_3_3_3', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
+
+    create_configuration_file(model_name='custom_senet_3_3_3_cifar', pretrained_weights=False)
+    cfg = load_configuration_file('config.yaml')
+    cfg['pretrained_weights'] = False
+    cfg['pretrained_model'] = True
+    test_model(cfg)
