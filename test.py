@@ -2,9 +2,12 @@ import os
 
 from code.training.train_model import train_model, test_model
 from code.utils.configuration import create_configuration_file, load_configuration_file
+from code.training.auxiliary import create_sets
 
 if __name__ == '__main__':
     os.environ['TORCH_HOME'] = './cache'
+
+    create_sets('hand_gestures')
 
     create_configuration_file(model_name='resnet-fc-101', pretrained_weights=False)
     cfg = load_configuration_file('config.yaml')
