@@ -310,10 +310,10 @@ def test_model(cfg):
     model.eval()
 
     # add to increase the dataset size
-    for folder in os.listdir(os.path.join('sets', 'test')):
+    """for folder in os.listdir(os.path.join('sets', 'test')):
         for image in os.listdir(os.path.join('sets', 'test', folder)):
             for i in range(9):
-                shutil.copy(os.path.join('sets', 'test', folder, image), os.path.join('sets', 'test', folder, image[:-4] + f'_{i}.jpg'))
+                shutil.copy(os.path.join('sets', 'test', folder, image), os.path.join('sets', 'test', folder, image[:-4] + f'_{i}.jpg'))"""
 
     """transform = transforms.Compose([
         transforms.Resize(shape),
