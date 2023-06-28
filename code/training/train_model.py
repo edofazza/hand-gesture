@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import seaborn as sn
 import pandas as pd
 from decimal import Decimal
+import shutil
 
 from code.training.models import get_model
 from code.training.auxiliary import create_sets, create_dataloader, get_device
@@ -300,7 +301,7 @@ def test2(test_loader, model, criterion, device):
 
 def test_model(cfg):
     model_name = cfg['model_name']
-    num_classes = len(os.listdir(os.path.join('sets', 'training')))
+    num_classes = len(os.listdir(os.path.join('sets', 'test')))
     model, shape = get_model(model_name, cfg['pretrained_weights'], cfg['finetune_layer'], cfg['pretrained_model'],
                              num_classes, cfg['layers'])
     device = get_device(cfg['seed'])
@@ -308,11 +309,36 @@ def test_model(cfg):
     model.to(device)
     model.eval()
 
-    transform = transforms.Compose([
+    # add to increase the dataset size
+    for folder in os.listdir(os.path.join('sets', 'test')):
+        for image in os.listdir(os.path.join('sets', 'test', folder)):
+            for i in range(9):
+                shutil.copy(os.path.join('sets', 'test', folder, image), os.path.join('sets', 'test', folder, image[:-4] + f'_{i}.jpg'))
+
+    """transform = transforms.Compose([
         transforms.Resize(shape),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    ])
+    ])"""
+    transforms_list = [transforms.Resize(shape)]
+
+    if cfg['fliplr']:  # horizontal flip
+        transforms_list.append(transforms.RandomHorizontalFlip())
+    if cfg['gaussian_blur']:  # Gaussian blur
+        transforms_list.append(transforms.GaussianBlur(cfg['gaussian_kernel'], (cfg['sigma_min'], cfg['sigma_max'])))
+    if cfg['affine']:  # affine
+        transforms_list.append(
+            transforms.RandomAffine(cfg['affine_percent'], scale=(cfg['affine_scale_min'], cfg['affine_scale_max'])))
+    if cfg['jitter']:
+        transforms_list.append(
+            transforms.ColorJitter(brightness=(cfg['jitter_min'], cfg['jitter_max']),
+                                   contrast=(cfg['jitter_min'], cfg['jitter_max']),
+                                   hue=cfg['jitter_hue'],
+                                   saturation=(cfg['jitter_min'], cfg['jitter_max'])))
+
+    transforms_list.append(transforms.ToTensor())
+    transforms_list.append(transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]))
+    transform = transforms.Compose(transforms_list)
 
     test_loader = create_dataloader(os.path.join('sets', 'test'), transform, cfg['batch_size'])
     criterion = nn.CrossEntropyLoss()
